@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/static/app_theme.dart';
-import 'package:movies/screen/OnBoarding.dart';
+import 'package:movies/routs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const OnBoarding(),
+      routes: routs,
     );
   }
 }
