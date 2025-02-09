@@ -1,0 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:movies/core/class/app_rout.dart';
+import 'package:movies/screen/OnBoarding.dart';
+import 'package:movies/screen/log.dart';
+
+Map<String, Widget Function(BuildContext)> routs = {
+  "/": (context) => const OnBoarding(),
+  AppRouts.log: (context) => const Log(),
+};
