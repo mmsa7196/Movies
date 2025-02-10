@@ -62,7 +62,7 @@ class _OnBoardingState extends State<OnBoarding> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeOutCirc);
                       if (index == 5) {
-                        Navigator.pushNamed(context, AppRouts.log);
+                        Navigator.pushNamed(context, AppRouts.home);
                       }
                       ;
                       setState(() {});
