@@ -6,4 +6,8 @@ class AppImages {
   static const String onboarding4 = 'assets/onboarding4.png';
   static const String onboarding5 = 'assets/onboarding5.png';
   static const String onboarding6 = 'assets/onboarding6.png';
+
+  static const String watchNow = 'assets/watch_now.png';
+
+  static const String availableNow = 'assets/available_now.png';
 }
