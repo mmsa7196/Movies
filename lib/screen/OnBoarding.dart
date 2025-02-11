@@ -35,6 +35,8 @@ class _OnBoardingState extends State<OnBoarding> {
                 alignment: Alignment.topCenter,
                 child: Image.asset(onBoarding[index]["image"])),
             ScreenColor(
+              height: 300,
+              width: 300,
               colors: onBoarding[index]['colors'],
             ),
             index == 0

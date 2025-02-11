@@ -12,4 +12,5 @@ class AppColors {
   static const redSecondScreen = Color(0xff601321);
   static const greyScreen = Color(0xff2A2C30);
   static const moveScreen = Color(0xff4C2471);
+  static const textSecondary = Color(0xffADADAD);
 }

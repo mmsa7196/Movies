@@ -3,7 +3,6 @@ import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 import 'package:movies/customs/movie_poster.dart';
 import 'package:movies/customs/title_list.dart';
-import 'package:movies/widget/home/back_ground_screen.dart';
 import 'package:movies/widget/home/movies_available_now.dart';
 import 'package:movies/widget/onboarding/screen_color.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
@@ -17,17 +16,41 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  double _currentPage = 0;
+  PageController _pageController = PageController(viewportFraction: 0.55);
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = _pageController.page!;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+
+    double w = MediaQuery.of(context).size.width;
+
     return Scaffold(
         body: SafeArea(
       child: Stack(alignment: Alignment.topCenter, children: [
-        BackGroundScreen(),
+        Image.asset(onBoarding[_currentPage.toInt()]['image'],
+            height: h * 0.8, width: w, fit: BoxFit.cover),
         ScreenColor(
+            height: h * 0.8,
+            width: double.infinity,
             colors: [AppColors.primary, const Color.fromARGB(119, 40, 47, 40)]),
         ListView(
           children: [
             Positioned(top: 10, child: Image.asset(AppImages.availableNow)),
-            MoviesAvailableNow(),
+            MoviesAvailableNow(
+              pageController: _pageController,
+              currentPage: _currentPage,
+            ),
             Positioned(
                 top: 10,
                 child: Image.asset(

@@ -3,36 +3,25 @@ import 'package:movies/customs/movie_poster.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
 
 class MoviesAvailableNow extends StatefulWidget {
-  const MoviesAvailableNow({super.key});
+  final double currentPage;
+  final PageController pageController;
+  const MoviesAvailableNow(
+      {super.key, required this.pageController, required this.currentPage});
 
   @override
   State<MoviesAvailableNow> createState() => _MoviesAvailableNowState();
 }
 
 class _MoviesAvailableNowState extends State<MoviesAvailableNow> {
-  @override
-  double _currentPage = 0;
-  PageController _pageController = PageController(viewportFraction: 0.55);
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page!;
-      });
-    });
-  }
-
   Widget build(BuildContext context) {
     return SizedBox(
       height: 320,
       child: PageView.builder(
-        controller: _pageController,
+        controller: widget.pageController,
         itemCount: onBoarding.length,
         itemBuilder: (context, index) {
-          double scale = (_currentPage - index).abs() <= 1
-              ? 1 - (_currentPage - index).abs() * 0.3
+          double scale = (widget.currentPage - index).abs() <= 1
+              ? 1 - (widget.currentPage - index).abs() * 0.3
               : 0.7;
           return Column(
             mainAxisSize: MainAxisSize.min,

@@ -6,8 +6,10 @@ class CustomButton extends StatelessWidget {
   final Color color;
   final Color textColor;
   final TextStyle textStyle;
+  final bool border;
   const CustomButton(
       {super.key,
+      this.border = true,
       required this.title,
       this.color = AppColors.button,
       required this.textColor,
@@ -23,7 +25,8 @@ class CustomButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(width: 1, color: AppColors.button)),
+          border:
+              border ? Border.all(width: 1, color: AppColors.button) : null),
       child: Text(title, style: textStyle),
     );
   }
