@@ -17,6 +17,7 @@ class AppImages {
   static const String egIcon = 'assets/EG.png';
   static const String nameIcon = 'assets/icon _Identification_.png';
   static const String phoneIcon = 'assets/phone_icon.png';
+  static const String forgetImage = 'assets/Forgot password-bro 1.png';
   static List<String> avatars = [
     'assets/avatar1.png',
     'assets/avatar2.png',
