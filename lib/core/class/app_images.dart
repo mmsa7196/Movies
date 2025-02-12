@@ -15,4 +15,17 @@ class AppImages {
   static const String googleIcon = 'assets/icon _google_.png';
   static const String usaIcon = 'assets/usa.png';
   static const String egIcon = 'assets/EG.png';
+  static const String nameIcon = 'assets/icon _Identification_.png';
+  static const String phoneIcon = 'assets/phone_icon.png';
+  static List<String> avatars = [
+    'assets/avatar1.png',
+    'assets/avatar2.png',
+    'assets/avatar3.png',
+    'assets/avatar4.png',
+    'assets/avatar5.png',
+    'assets/avatar6.png',
+    'assets/avatar7.png',
+    'assets/avatar8.png',
+    'assets/avatar9.png',
+  ];
 }
