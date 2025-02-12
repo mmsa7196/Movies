@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        BottomNavigationBar(items: items)
+        BottomNavigationBar(items: BottomAppBar())
       ]),
     ));
   }
