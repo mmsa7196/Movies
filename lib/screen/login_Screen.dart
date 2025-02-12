@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/button.dart';
 import 'package:movies/customs/input_field.dart';
 import 'package:movies/customs/lang_mode_btn.dart';
+import 'package:movies/screen/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const String routeName = "LoginScreen";
   const LoginScreen({super.key});
 
   @override
@@ -56,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     child: Text(
-                      "Login with Google",
+                      "Login",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -76,7 +79,9 @@ class LoginScreen extends StatelessWidget {
                         .copyWith(fontSize: 14),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterScreen.routeName);
+                    },
                     child: Text(
                       "Create Account",
                       style: Theme.of(context)
