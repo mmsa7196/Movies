@@ -15,6 +15,8 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageController _pageController =
+        PageController(initialPage: 4, viewportFraction: .3);
     return Scaffold(
       appBar: AppBar(
         title: Text("Register"),
@@ -26,10 +28,12 @@ class RegisterScreen extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Container(
               height: 94,
-              child: ListView.builder(
+              child: PageView.builder(
+                  controller: _pageController,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      Image.asset(AppImages.avatars[index]),
+                  itemBuilder: (context, index) {
+                    return Image.asset(AppImages.avatars[index]);
+                  },
                   itemCount: AppImages.avatars.length),
             ),
             Padding(
