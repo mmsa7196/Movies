@@ -74,11 +74,13 @@ class _HomeState extends State<Home> {
                         height: 250,
                         width: 150,
                         ratingHeight: 30,
-                        ratingWidth: 50)),
+                        ratingWidth: 50),
+                ),
               ),
             )
           ],
-        )
+        ),
+        BottomNavigationBar(items: BottomAppBar())
       ]),
     ));
   }
