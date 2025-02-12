@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/static/app_theme.dart';
 import 'package:movies/screen/home.dart';
+import 'package:movies/screen/login_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: Home(),
+      home: LoginScreen(),
       //  routes: routs,
     );
   }
