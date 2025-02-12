@@ -4,6 +4,7 @@ import 'package:movies/core/static/app_theme.dart';
 import 'package:movies/screen/Tabs/BottomNavigationBarScreen.dart';
 import 'package:movies/routs.dart';
 import 'package:movies/screen/OnBoarding.dart';
+import 'package:movies/screen/forget_password_screen.dart';
 import 'package:movies/screen/home.dart';
 import 'package:movies/screen/login_Screen.dart';
 import 'package:movies/screen/register_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => RegisterScreen(),
+        ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
       },
     );
   }
