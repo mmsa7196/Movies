@@ -3,4 +3,5 @@ class AppRouts {
   static const log = '/log';
   static const home = '/home';
   static const movieDetails = '/movieDetails';
+  static const bottomNavigationBarScreen = '/bottomNavigationBarScreen';
 }
