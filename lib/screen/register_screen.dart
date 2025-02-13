@@ -6,9 +6,8 @@ import 'package:movies/core/class/app_images.dart';
 import 'package:movies/core/class/firebase_manager.dart';
 import 'package:movies/customs/input_field.dart';
 import 'package:movies/customs/lang_mode_btn.dart';
+import 'package:movies/data/model/user_model.dart';
 import 'package:movies/screen/logIn_Screen.dart';
-import 'package:overlapped_carousel/overlapped_carousel.dart';
-
 class RegisterScreen extends StatelessWidget {
   static const String routeName = "Register";
 
@@ -22,6 +21,7 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     TextEditingController rePasswordController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
+    String avatar = AppImages.avatars[4];
 
     PageController _pageController =
         PageController(initialPage: 4, viewportFraction: .3);
@@ -43,7 +43,11 @@ class RegisterScreen extends StatelessWidget {
                         controller: _pageController,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Image.asset(AppImages.avatars[index]);
+                          return GestureDetector(
+                              onTap: () {
+                                avatar = AppImages.avatars[index];
+                              },
+                              child: Image.asset(AppImages.avatars[index]));
                         },
                         itemCount: AppImages.avatars.length),
                   ),
@@ -143,6 +147,9 @@ class RegisterScreen extends StatelessWidget {
                           FirebaseManager.createAccount(
                             emailAddress: emailController.text,
                             password: passwordController.text,
+                            name: nameController.text,
+                            phone: phoneController.text,
+                            avatar: avatar,
                             onLoading: () {
                               showDialog(
                                 context: context,

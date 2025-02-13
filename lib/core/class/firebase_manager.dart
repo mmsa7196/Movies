@@ -1,10 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movies/data/model/user_model.dart';
 
 class FirebaseManager {
   static Future<void> createAccount(
       {required String emailAddress,
       required String password,
+      required String name,
+      required String phone,
+      required String avatar,
       required Function onLoading,
       required Function onSuccess,
       required Function onError}) async {
@@ -15,6 +20,9 @@ class FirebaseManager {
         email: emailAddress,
         password: password,
       );
+      UserModel user = UserModel(
+          name: name, email: emailAddress, phone: phone, avatar: avatar);
+      addUser(user);
       onSuccess();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -58,5 +66,25 @@ class FirebaseManager {
     );
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  static CollectionReference<UserModel> getUserCollection() {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .withConverter<UserModel>(
+      fromFirestore: (model, options) {
+        return UserModel.fromJson(model.data()!);
+      },
+      toFirestore: (user, options) {
+        return UserModel.toJson(user);
+      },
+    );
+  }
+
+  static Future<void> addUser(UserModel user) {
+    var collection = getUserCollection();
+    var docRef = collection.doc();
+    user.id = docRef.id;
+    return docRef.set(user);
   }
 }
