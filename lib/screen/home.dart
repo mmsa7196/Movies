@@ -8,7 +8,8 @@ import 'package:movies/widget/onboarding/screen_color.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  static const String routeName="Home";
+   Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -17,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   double _currentPage = 0;
+
   PageController _pageController = PageController(viewportFraction: 0.55);
 
   @override
@@ -55,7 +57,8 @@ class _HomeState extends State<Home> {
                 top: 10,
                 child: Image.asset(
                   AppImages.watchNow,
-                )),
+                ),
+            ),
             CustomTitleList(title: "Action", subTitle: "see more"),
             SizedBox(
               height: 16,
@@ -77,11 +80,14 @@ class _HomeState extends State<Home> {
                         ratingWidth: 50),
                 ),
               ),
-            )
+            ),
           ],
         ),
-        //BottomNavigationBar(items: BottomAppBar())
-      ]),
-    ));
+      ]
+      ),
+        ),
+
+    );
   }
+
 }
