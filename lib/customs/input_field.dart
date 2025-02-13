@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
-import 'package:movies/core/class/app_images.dart';
 
 class InputField extends StatelessWidget {
+  final String lable;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Function validate;
+  final TextEditingController? controller;
+  final bool isObscure;
   InputField(
       {super.key,
       required this.lable,
@@ -12,12 +17,6 @@ class InputField extends StatelessWidget {
       this.controller,
       this.isObscure = false});
 
-  final String lable;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final Function validate;
-  final TextEditingController? controller;
-  final bool isObscure;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
