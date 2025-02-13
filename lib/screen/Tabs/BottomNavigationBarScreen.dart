@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 import 'package:movies/screen/Tabs/explore_tab.dart';
-import 'package:movies/screen/Tabs/BottomNavigationBarScreen.dart';
 import 'package:movies/screen/Tabs/profiel_tab.dart';
 import 'package:movies/screen/Tabs/search_tab.dart';
 import 'package:movies/screen/home.dart';
@@ -25,7 +24,6 @@ class _bottomState extends State<BottomNavigationBarScreen> {
           onTap: (value) {
             currentIndex=value;
             setState(() {
-
             });
           },
           currentIndex: currentIndex,
@@ -35,10 +33,12 @@ class _bottomState extends State<BottomNavigationBarScreen> {
           selectedItemColor: AppColors.button,
           unselectedItemColor: AppColors.text,
           type: BottomNavigationBarType.fixed,
+          elevation: 0,
+
           items: [
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppImages.home)),
-                label:"" ),
+                label:""),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppImages.search)),
                 label:"" ),
@@ -48,7 +48,8 @@ class _bottomState extends State<BottomNavigationBarScreen> {
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage(AppImages.profile)),
                 label:"" ),
-          ]),
+          ]
+      ),
       body: tabs[currentIndex],
     );
   }

@@ -5,7 +5,7 @@ import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/button.dart';
 import 'package:movies/customs/input_field.dart';
 import 'package:movies/customs/lang_mode_btn.dart';
-import 'package:movies/screen/forget_password_screen.dart';
+import 'package:movies/screen/home.dart';
 import 'package:movies/screen/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -43,10 +43,7 @@ class LoginScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                        context, ForgetPasswordScreen.routeName);
-                  },
+                  onPressed: () {},
                   child: Text(
                     "Forget Password ?",
                     style: Theme.of(context)
@@ -59,7 +56,9 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 33, bottom: 22),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Home.routeName);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     child: Text(

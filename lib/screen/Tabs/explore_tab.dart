@@ -5,6 +5,8 @@ class ExploreTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Center(
+      child: Text("Hello"),
+    );
   }
 }
