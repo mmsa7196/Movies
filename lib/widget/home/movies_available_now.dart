@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movies/customs/movie_poster.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
 
+import '../../core/class/app_rout.dart';
+
 class MoviesAvailableNow extends StatefulWidget {
   final double currentPage;
   final PageController pageController;
@@ -28,13 +30,18 @@ class _MoviesAvailableNowState extends State<MoviesAvailableNow> {
             children: [
               Transform.scale(
                   scale: scale,
-                  child: CustomMoviePoster(
-                      image: onBoarding[index]["image"],
-                      rating: '7.7',
-                      height: 310,
-                      width: double.infinity,
-                      ratingHeight: 30,
-                      ratingWidth: 50)),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRouts.movieDetails);
+                    },
+                    child: CustomMoviePoster(
+                        image: onBoarding[index]["image"],
+                        rating: '7.7',
+                        height: 310,
+                        width: double.infinity,
+                        ratingHeight: 30,
+                        ratingWidth: 50),
+                  )),
             ],
           );
         },

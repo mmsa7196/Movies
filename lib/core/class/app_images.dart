@@ -18,7 +18,7 @@ class AppImages {
   static const String googleIcon = 'assets/icon _google_.png';
   static const String usaIcon = 'assets/usa.png';
   static const String egIcon = 'assets/EG.png';
-  static const String nameIcon = 'assets/icon _Identification_.png';
+  static const String nameIcon = 'assets/icon_Identification_.png';
   static const String phoneIcon = 'assets/phone_icon.png';
   static const String forgetImage = 'assets/Forgot password-bro 1.png';
   static List<String> avatars = [
@@ -32,4 +32,11 @@ class AppImages {
     'assets/avatar8.png',
     'assets/avatar9.png',
   ];
+  static const String clock = 'assets/clock_icon.png';
+
+  static const String heart = 'assets/star_icon.png';
+
+  static const String star = 'assets/clock_icon.png';
+
+  static const String shortScreen = 'assets/short_screen.png';
 }

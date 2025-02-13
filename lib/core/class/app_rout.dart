@@ -1,8 +1,14 @@
 class AppRouts {
   static const onBoarding = '/onBoarding';
-  static const log = '/log';
+
   static const home = '/home';
   static const movieDetails = '/movieDetails';
-  static const String loginScreen = '/LoginScreen';
-  static const String registerScreen = '/RegisterScreen';
+
+  static const String login = "/loginScreen";
+
+  static const String register = "/register";
+
+  static const String forgetPass = "/forgetPass";
+
+  static const String bottonNavigator = "/bottonNavigator";
 }

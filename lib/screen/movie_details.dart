@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
-import 'package:movies/customs/button.dart';
+import 'package:movies/widget/movie_details/app_bar.dart';
+import 'package:movies/widget/movie_details/cast_movie.dart';
+import 'package:movies/widget/movie_details/custom_gener.dart';
 import 'package:movies/widget/movie_details/icon_play.dart';
+import 'package:movies/widget/movie_details/icons_heart_star_clock.dart';
+import 'package:movies/widget/movie_details/similar_movies.dart';
+import 'package:movies/widget/movie_details/summary_movie.dart';
+import 'package:movies/widget/movie_details/text_and_watch_button.dart';
 import 'package:movies/widget/onboarding/screen_color.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -17,7 +23,6 @@ class MovieDetails extends StatelessWidget {
       body: ListView(
         children: [
           Stack(
-            //   alignment: Alignment.center,
             children: [
               Image.asset(
                 AppImages.onboarding5,
@@ -29,56 +34,42 @@ class MovieDetails extends StatelessWidget {
                 AppColors.primary,
                 const Color.fromARGB(0, 18, 19, 18)
               ]),
-              Column(
-                spacing: h * 0.15,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: AppColors.text,
-                          size: 30,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.bookmark_outlined,
-                          color: AppColors.text,
-                          size: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const IconPlay(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Doctor Strange in the Multiverse of Madness",
-                          style: textTheme.titleSmall,
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "2022",
-                          style: textTheme.bodyLarge!
-                              .copyWith(color: AppColors.textSecondary),
-                          textAlign: TextAlign.center,
-                        ),
-                        CustomButton(
-                          title: "Watch",
-                          textColor: AppColors.text,
-                          textStyle: textTheme.bodyLarge!,
-                          color: AppColors.buttonRed,
-                        )
-                      ],
-                    ),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  spacing: h * 0.15,
+                  children: [
+                    const AppBarDetails(),
+                    const IconPlay(),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: h * 0.02,
+                        children: [
+                          const TextAndWatchButton(),
+                          const IconsHeartStarClock(),
+                          Text("Screen Shots", style: textTheme.titleMedium),
+                          Image.asset(AppImages.shortScreen),
+                          Image.asset(AppImages.shortScreen),
+                          Image.asset(AppImages.shortScreen),
+                          Text("Similar", style: textTheme.titleMedium),
+                          SimilarMovies(),
+                          Text("Summary", style: textTheme.titleMedium),
+                          SummaryMovie(),
+                          Text("Cast", style: textTheme.titleMedium),
+                          CastMovie(),
+                          CastMovie(),
+                          CastMovie(),
+                          CastMovie(),
+                          Text("Genre", style: textTheme.titleMedium),
+                          Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children:
+                                List.generate(5, (index) => CustomGenre()),
+                          )
+                        ])
+                  ],
+                ),
               )
             ],
           )

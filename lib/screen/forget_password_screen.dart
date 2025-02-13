@@ -4,8 +4,6 @@ import 'package:movies/core/class/app_images.dart';
 import 'package:movies/customs/input_field.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-  static const String routeName = "ForgetPass";
-
   const ForgetPasswordScreen({super.key});
 
   @override

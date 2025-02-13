@@ -36,7 +36,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 child: Image.asset(onBoarding[index]["image"])),
             ScreenColor(
               height: 300,
-              width: 300,
+              width: double.infinity,
               colors: onBoarding[index]['colors'],
             ),
             index == 0
@@ -64,7 +64,7 @@ class _OnBoardingState extends State<OnBoarding> {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeOutCirc);
                       if (index == 5) {
-                        Navigator.pushNamed(context, AppRouts.home);
+                        Navigator.pushNamed(context, AppRouts.login);
                       }
                       ;
                       setState(() {});
