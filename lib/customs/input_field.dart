@@ -6,17 +6,23 @@ class InputField extends StatelessWidget {
   InputField(
       {super.key,
       required this.lable,
+      required this.validate,
       this.prefixIcon,
       this.suffixIcon,
+      this.controller,
       this.isObscure = false});
 
   final String lable;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final Function validate;
+  final TextEditingController? controller;
   final bool isObscure;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) => validate(value),
+      controller: controller,
       obscureText: isObscure,
       cursorColor: AppColors.text,
       decoration: InputDecoration(

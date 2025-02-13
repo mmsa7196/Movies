@@ -6,6 +6,8 @@ import 'package:movies/screen/movie_details.dart';
 
 Map<String, Widget Function(BuildContext)> routs = {
   // "/": (context) => const OnBoarding(),
+  AppRouts.log: (context) => LoginScreen(),
+  AppRouts.home: (context) => const Home(),
   AppRouts.home: (context) =>  Home(),
   AppRouts.log: (context) => const LoginScreen(),
   // AppRouts.movieDetails:
