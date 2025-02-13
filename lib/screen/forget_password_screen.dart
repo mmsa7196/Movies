@@ -25,6 +25,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               child: InputField(
                 lable: "Email",
                 prefixIcon: Image.asset(AppImages.emailIcon),
+                validate: () {},
               ),
             ),
             ElevatedButton(
