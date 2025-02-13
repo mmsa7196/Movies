@@ -3,7 +3,6 @@ import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 import 'package:movies/customs/movie_poster.dart';
 import 'package:movies/customs/title_list.dart';
-import 'package:movies/screen/Tabs/BottomNavigationBarScreen.dart';
 import 'package:movies/widget/home/movies_available_now.dart';
 import 'package:movies/widget/onboarding/screen_color.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
