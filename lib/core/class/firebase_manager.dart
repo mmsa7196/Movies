@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:movies/data/model/user_model.dart';
+import 'package:movies/model/user_model.dart';
 
 class FirebaseManager {
   static Future<void> createAccount(

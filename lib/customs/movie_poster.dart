@@ -28,7 +28,7 @@ class CustomMoviePoster extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
+              child: Image.network(
                 image,
                 height: height,
                 fit: BoxFit.cover,
