@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/bloc/bloc_home_states.dart';
 import 'package:movies/bloc/home/get_all_movies.dart';
 import 'package:movies/bloc/home/get_movies_avilable_now.dart';
+import 'package:movies/bloc/states/bloc_home_states.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 import 'package:movies/customs/movie_poster.dart';
@@ -59,12 +60,22 @@ class _HomeState extends State<Home> {
                 return Stack(
                   alignment: Alignment.topCenter,
                   children: [
-                    Image.network(
-                      blocAvailableNow.moviesAvailableNow![_currentPage.toInt()]
+                    CachedNetworkImage(
+                      imageUrl: blocAvailableNow
+                          .moviesAvailableNow![_currentPage.toInt()]
                           .largeCoverImage!,
                       height: h * 0.8,
                       width: w,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => Image.asset(
+                        AppImages.logo,
+                        height: h * 0.8,
+                        width: w,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     ScreenColor(
                         height: h * 0.8,
@@ -77,7 +88,13 @@ class _HomeState extends State<Home> {
                     ListView(
                       children: [
                         SizedBox(height: 10),
+                        /////////////////////////////////////////////////////////////
+                        ////////////////////// image availableNow //////////////////
+                        /////////////////////////////////////////////////////////////
                         Image.asset(AppImages.availableNow),
+                        /////////////////////////////////////////////////////////////
+                        ////////////////////// movies availableNow //////////////////
+                        /////////////////////////////////////////////////////////////
                         MoviesAvailableNow(
                           image: blocAvailableNow
                                   .moviesAvailableNow![_currentPage.toInt()]
@@ -87,19 +104,40 @@ class _HomeState extends State<Home> {
                           currentPage: _currentPage,
                         ),
                         SizedBox(height: 10),
+
+                        /////////////////////////////////////////////////////////////
+                        ////////////////////// image watch now //////////////////
+                        /////////////////////////////////////////////////////////////
                         Image.asset(AppImages.watchNow),
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// TITLE WATCH MORE /////////////////////////......//////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
                         CustomTitleList(title: "Action", subTitle: "See more"),
                         SizedBox(height: 16),
-///////////////////////////////////////////////////////////////// bloc 2
+                        /////////////////////////////////////////////////////////////
+                        //////////////////////  BLOC NUMBER 2  //////////////////
+                        /////////////////////////////////////////////////////////////
                         BlocBuilder<HomeGetMovies, HomeStates>(
                           builder: (context, state) {
+                            /////////////////////////////////////////////////////////////
+                            ////////////////////// LOADING //////////////////
+                            /////////////////////////////////////////////////////////////
                             if (state is HomeGetLoadingState) {
                               return Center(child: CircularProgressIndicator());
                             }
+
+                            /////////////////////////////////////////////////////////////
+                            ////////////////////// ERROR //////////////////
+                            /////////////////////////////////////////////////////////////
                             if (state is HomeGetErrorState) {
                               return Center(
                                   child: Text("Error loading movies"));
                             }
+
+                            /////////////////////////////////////////////////////////////
+                            ////////////////////// SUCCESS //////////////////////////////
+                            /////////////////////////////////////////////////////////////
                             if (state is HomeGetSuccessState) {
                               var bloc = context.read<HomeGetMovies>();
                               return Padding(
@@ -120,6 +158,10 @@ class _HomeState extends State<Home> {
                                             height: 0,
                                             width: 0,
                                           )
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// POSTER /////////////////////////......//////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
                                         : CustomMoviePoster(
                                             image: bloc.moviesAll?[index]
                                                     .mediumCoverImage ??
@@ -135,6 +177,10 @@ class _HomeState extends State<Home> {
                                 ),
                               );
                             }
+
+                            /////////////////////////////////////////////////////////////
+                            ////////////////////// ERROR //////////////////////////////
+                            /////////////////////////////////////////////////////////////
                             return Center(child: Text("No movies available"));
                           },
                         ),

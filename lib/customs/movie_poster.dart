@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
+import 'package:movies/core/class/app_images.dart';
 
 class CustomMoviePoster extends StatelessWidget {
   final String image;
@@ -20,47 +22,61 @@ class CustomMoviePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                image,
-                height: height,
-                fit: BoxFit.cover,
-                width: width,
-              ),
-            ),
-            Positioned(
-              top: 10,
-              left: 10,
-              child: Container(
-                alignment: Alignment.center,
-                height: ratingHeight,
-                width: ratingWidth,
-                decoration: BoxDecoration(
-                  color: AppColors.secondary.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(rating),
-                    const Icon(
-                      Icons.star,
-                      color: AppColors.button,
-                    )
-                  ],
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(width: 1, color: AppColors.primary)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  height: height * 0.95,
+                  fit: BoxFit.cover,
+                  width: width,
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppImages.logo,
+                    height: height * 0.95,
+                    width: width,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-      ],
+              Positioned(
+                top: 10,
+                left: 10,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: ratingHeight,
+                  width: ratingWidth,
+                  decoration: BoxDecoration(
+                    color: AppColors.secondary.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(rating),
+                      const Icon(
+                        Icons.star,
+                        color: AppColors.button,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -39,7 +39,8 @@ class _MoviesAvailableNowState extends State<MoviesAvailableNow> {
                   scale: scale,
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed(AppRouts.movieDetails);
+                      Navigator.of(context).pushNamed(AppRouts.movieDetails,
+                          arguments: bloc.moviesAvailableNow![index]);
                     },
                     child: CustomMoviePoster(
                         image:

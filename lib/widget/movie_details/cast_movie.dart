@@ -1,9 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 
 class CastMovie extends StatelessWidget {
-  const CastMovie({super.key});
+  final String name;
+  final String character;
+  final String image;
+  const CastMovie(
+      {super.key,
+      required this.name,
+      required this.character,
+      required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +20,7 @@ class CastMovie extends StatelessWidget {
 
     return Container(
       width: w,
-      height: 100,
+      height: h * 0.12,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: AppColors.secondary,
@@ -22,22 +30,31 @@ class CastMovie extends StatelessWidget {
         spacing: 10,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              AppImages.onboarding4,
-              height: 90,
-              width: 80,
-              fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.all(11),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: image,
+                height: h * 0.1,
+                width: w * 0.2,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  AppImages.logo,
+                  height: h * 0.95,
+                  width: w,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Name : Hayley Atwell"),
-              Text("Character : Captain Carter")
-            ],
+            children: [Text("Name : $name"), Text("Character : $character")],
           )
         ],
       ),

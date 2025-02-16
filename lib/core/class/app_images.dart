@@ -34,9 +34,9 @@ class AppImages {
   ];
   static const String clock = 'assets/clock_icon.png';
 
-  static const String heart = 'assets/star_icon.png';
+  static const String heart = 'assets/heart_icon.png';
 
-  static const String star = 'assets/clock_icon.png';
+  static const String star = 'assets/star_icon.png';
 
   static const String shortScreen = 'assets/short_screen.png';
 }
