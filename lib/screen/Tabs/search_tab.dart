@@ -1,62 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:movies/core/class/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/get_search.dart';
+import 'package:movies/bloc/states/search_movies.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/core/class/app_rout.dart';
+import 'package:movies/customs/input_field.dart';
+import 'package:movies/customs/movie_poster.dart';
 
-class SearchTab extends StatelessWidget {
+class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
-        child: Padding(
-          padding:  EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SizedBox(height: 21,),
-              TextField(
-                cursorColor: AppColors.text,
-                decoration: InputDecoration(
-                  fillColor: AppColors.secondary,
-                  filled: true,
-                  hintText: "Search",
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ImageIcon(AssetImage(AppImages.search,),color: AppColors.text,),
-                  ),
-                  hintStyle: TextStyle(color: AppColors.text,fontSize: 16,fontWeight: FontWeight.w400),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(
-                      color: AppColors.greyScreen,
-                    ),
-                  ),
-                  focusedBorder:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(
-                      color: AppColors.button,
-                    ),
-                  ),
-                  enabledBorder:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(
-                      color: AppColors.greyScreen,
-                    ),
-                  ) ,
-                ),
-              ),
-              SizedBox(height: 16,),
-              Spacer(),
-              Column(children: [
-                Image.asset("assets/Empty.png",height:124 ,width:124 ,),
-              ],),
-              Spacer(),
-            ],
+  State<SearchTab> createState() => _SearchTabState();
+}
 
-          ),
-        ),
+class _SearchTabState extends State<SearchTab> {
+  late TextEditingController cTextSearch;
+
+  @override
+  void initState() {
+    cTextSearch = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    cTextSearch.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+
+    double w = MediaQuery.of(context).size.width;
+    return BlocProvider(
+      create: (context) => GetSearchMovies(),
+      child: Builder(
+        builder: (context) {
+          var bloc = context.read<GetSearchMovies>();
+          return Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Column(
+                children: [
+                  const SizedBox(height: 21),
+                  InputField(
+                    onClick: (v) {
+                      if (v != null && v.isNotEmpty) {
+                        bloc.getSearchMovies(v);
+                      }
+                    },
+                    validate: () {},
+                    controller: cTextSearch,
+                    lable: "Search",
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Image.asset(
+                        AppImages.search,
+                        fit: BoxFit.cover,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                  BlocBuilder<GetSearchMovies, SearchMoviesStates>(
+                    builder: (context, state) {
+                      if (state is SearchMoviesLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (state is SearchMoviesErrorStates) {
+                        return const Center(child: Text("Error"));
+                      }
+                      if (state is SearchMoviesEmptyStates) {
+                        return Center(child: Image.asset(AppImages.empty));
+                      }
+                      if (state is SearchMoviesSuccessStates) {
+                        return Expanded(
+                          child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                                childAspectRatio: 0.6,
+                              ),
+                              itemCount: bloc.movies.length > 20
+                                  ? 20
+                                  : bloc.movies.length,
+                              itemBuilder: (context, index) => InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          AppRouts.movieDetails,
+                                          arguments: bloc.movies[index]);
+                                      print(bloc.movies[index].id);
+                                    },
+                                    child: CustomMoviePoster(
+                                        image: bloc
+                                            .movies[index].mediumCoverImage!,
+                                        rating: bloc.movies[index].rating
+                                            .toString(),
+                                        height: h * 0.35,
+                                        width: w * 0.45,
+                                        ratingHeight: 35,
+                                        ratingWidth: 70),
+                                  )),
+                        );
+                      }
+                      return Center(
+                          child: Image.asset(
+                        AppImages.empty,
+                        height: h * 0.3,
+                        width: w * 0.4,
+                      ));
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
-  }
+}

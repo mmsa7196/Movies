@@ -14,6 +14,7 @@ import 'package:movies/widget/movie_details/icon_play.dart';
 import 'package:movies/widget/movie_details/icons_heart_star_clock.dart';
 import 'package:movies/widget/movie_details/screen_shot.dart';
 import 'package:movies/widget/movie_details/similar_movies.dart';
+import 'package:movies/widget/movie_details/summary_movie.dart';
 import 'package:movies/widget/movie_details/text_and_watch_button.dart';
 import 'package:movies/widget/onboarding/screen_color.dart';
 
@@ -27,7 +28,7 @@ class MovieDetails extends StatelessWidget {
     double h = size.height;
     double w = size.width;
     Movies movieChoosen = ModalRoute.of(context)!.settings.arguments as Movies;
-
+    print(movieChoosen.id);
     return Scaffold(
       body: BlocProvider(
         create: (context) => GetMovieDetails(model: MovieDetailsModel())
@@ -125,6 +126,7 @@ class MovieDetails extends StatelessWidget {
                                   ),
                                 if (movieChoosen.summary?.isNotEmpty ?? false)
                                   Text("Summary", style: textTheme.titleMedium),
+                                SummaryMovie(title: movieChoosen.summary!),
                                 if (movie.cast != null &&
                                     movie.cast!.isNotEmpty)
                                   Text("Cast", style: textTheme.titleMedium),

@@ -6,6 +6,7 @@ class InputField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Function validate;
+  void Function(String)? onClick;
   final TextEditingController? controller;
   final bool isObscure;
   InputField(
@@ -15,11 +16,13 @@ class InputField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.controller,
-      this.isObscure = false});
+      this.isObscure = false,
+      this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onClick,
       validator: (value) => validate(value),
       controller: controller,
       obscureText: isObscure,
@@ -30,7 +33,7 @@ class InputField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: AppColors.greyScreen,
+        fillColor: AppColors.secondary,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(color: AppColors.greyScreen),
@@ -42,7 +45,7 @@ class InputField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
-            color: AppColors.greyScreen,
+            color: AppColors.secondary,
           ),
         ),
       ),
