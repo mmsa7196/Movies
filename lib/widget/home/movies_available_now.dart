@@ -37,20 +37,18 @@ class _MoviesAvailableNowState extends State<MoviesAvailableNow> {
             children: [
               Transform.scale(
                   scale: scale,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRouts.movieDetails,
-                          arguments: bloc.moviesAvailableNow![index]);
-                    },
-                    child: CustomMoviePoster(
-                        image:
-                            "${bloc.moviesAvailableNow?[index].largeCoverImage!}",
-                        rating: "${bloc.moviesAvailableNow?[index].rating}",
-                        height: 310,
-                        width: double.infinity,
-                        ratingHeight: 30,
-                        ratingWidth: 50),
-                  )),
+                  child: CustomMoviePoster(
+                      ontap: () {
+                        Navigator.of(context).pushNamed(AppRouts.movieDetails,
+                            arguments: bloc.moviesAvailableNow![index]);
+                      },
+                      image:
+                          "${bloc.moviesAvailableNow?[index].largeCoverImage!}",
+                      rating: "${bloc.moviesAvailableNow?[index].rating}",
+                      height: 310,
+                      width: double.infinity,
+                      ratingHeight: 30,
+                      ratingWidth: 50)),
             ],
           );
         },

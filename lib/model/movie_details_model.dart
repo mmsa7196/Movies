@@ -54,8 +54,8 @@ class Movie {
   String? titleLong;
   String? slug;
   int? year;
-  int? rating;
-  int? runtime;
+  num? rating;
+  num? runtime;
   List<String>? genres;
   int? likeCount;
   String? descriptionIntro;

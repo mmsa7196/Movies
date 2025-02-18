@@ -5,7 +5,6 @@ import 'package:movies/bloc/get_movie_details.dart';
 import 'package:movies/bloc/states/details_movie.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
-import 'package:movies/model/movie_details_model.dart';
 import 'package:movies/model/movies_model.dart';
 import 'package:movies/widget/movie_details/app_bar.dart';
 import 'package:movies/widget/movie_details/cast_movie.dart';
@@ -28,11 +27,11 @@ class MovieDetails extends StatelessWidget {
     double h = size.height;
     double w = size.width;
     Movies movieChoosen = ModalRoute.of(context)!.settings.arguments as Movies;
-    print(movieChoosen.id);
+
     return Scaffold(
       body: BlocProvider(
-        create: (context) => GetMovieDetails(model: MovieDetailsModel())
-          ..getMovieDetails(movieChoosen.id.toString()),
+        create: (context) =>
+            GetMovieDetails()..getMovieDetails(movieChoosen.id.toString()),
         child: BlocBuilder<GetMovieDetails, DetailsMovieStates>(
           builder: (context, state) {
             if (state is DetailsMovieLoadingState) {
@@ -45,7 +44,7 @@ class MovieDetails extends StatelessWidget {
 
             if (state is DetailsMovieSuccessState) {
               final bloc = context.read<GetMovieDetails>();
-              final movie = bloc.model.data?.movie;
+              final movie = bloc.movie;
 
               if (movie == null) {
                 return const Center(child: Text("No movie details available"));
@@ -63,12 +62,22 @@ class MovieDetails extends StatelessWidget {
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(),
                         ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          AppImages.logo,
-                          height: size.height * 0.8,
-                          width: size.width,
-                          fit: BoxFit.cover,
-                        ),
+                        errorWidget: (context, url, error) =>
+                            CachedNetworkImage(
+                                imageUrl: movieChoosen.largeCoverImage ?? '',
+                                height: size.height * 0.8,
+                                width: size.width,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                      AppImages.logo,
+                                      height: size.height * 0.8,
+                                      width: size.width,
+                                      fit: BoxFit.cover,
+                                    )),
                       ),
                       ScreenColor(
                         height: size.height * 0.8,

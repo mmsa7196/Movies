@@ -6,11 +6,12 @@ import 'package:movies/bloc/states/details_movie.dart';
 import 'package:movies/model/movie_details_model.dart';
 
 class GetMovieDetails extends Cubit<DetailsMovieStates> {
-  MovieDetailsModel model;
+  Movie? movie;
 
-  GetMovieDetails({required this.model}) : super(DetailsMovieStatesIni());
+  GetMovieDetails({this.movie}) : super(DetailsMovieStatesIni());
 
   void getMovieDetails(String id) async {
+    print(id);
     try {
       emit(DetailsMovieLoadingState());
       Uri url = Uri.parse(
@@ -20,17 +21,17 @@ class GetMovieDetails extends Cubit<DetailsMovieStates> {
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         final json = jsonDecode(res.body);
-        model = MovieDetailsModel.fromJson(json);
-        if (model.status == "ok" && model.data?.movie != null) {
-          emit(DetailsMovieSuccessState());
-        } else {
-          emit(DetailsMovieErrorState(
-              error: model.statusMessage ?? "Unknown error"));
-        }
+        print("object");
+        MovieDetailsModel model = MovieDetailsModel.fromJson(json);
+        movie = model.data?.movie;
+        print("00000000000000");
+        print(movie);
+        emit(DetailsMovieSuccessState());
       } else {
         emit(DetailsMovieErrorState(error: "Failed to load movie details"));
       }
     } catch (e) {
+      print("---------------$e");
       emit(DetailsMovieErrorState(error: e.toString()));
     }
   }

@@ -88,31 +88,30 @@ class _SearchTabState extends State<SearchTab> {
                               itemCount: bloc.movies.length > 20
                                   ? 20
                                   : bloc.movies.length,
-                              itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                          AppRouts.movieDetails,
-                                          arguments: bloc.movies[index]);
-                                      print(bloc.movies[index].id);
-                                    },
-                                    child: CustomMoviePoster(
-                                        image: bloc
-                                            .movies[index].mediumCoverImage!,
-                                        rating: bloc.movies[index].rating
-                                            .toString(),
-                                        height: h * 0.35,
-                                        width: w * 0.45,
-                                        ratingHeight: 35,
-                                        ratingWidth: 70),
-                                  )),
+                              itemBuilder: (context, index) =>
+                                  CustomMoviePoster(
+                                      ontap: () {
+                                        Navigator.of(context).pushNamed(
+                                            AppRouts.movieDetails,
+                                            arguments: bloc.movies![index]);
+                                      },
+                                      image:
+                                          bloc.movies[index].mediumCoverImage!,
+                                      rating:
+                                          bloc.movies[index].rating.toString(),
+                                      height: h * 0.35,
+                                      width: w * 0.45,
+                                      ratingHeight: 35,
+                                      ratingWidth: 70)),
                         );
                       }
-                      return Center(
-                          child: Image.asset(
-                        AppImages.empty,
-                        height: h * 0.3,
-                        width: w * 0.4,
-                      ));
+                      return Expanded(
+                        child: Image.asset(
+                          AppImages.empty,
+                          height: h * 0.3,
+                          width: w * 0.4,
+                        ),
+                      );
                     },
                   ),
                 ],

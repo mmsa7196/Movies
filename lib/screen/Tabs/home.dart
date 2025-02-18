@@ -6,6 +6,7 @@ import 'package:movies/bloc/home/get_movies_avilable_now.dart';
 import 'package:movies/bloc/states/bloc_home_states.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/movie_poster.dart';
 import 'package:movies/customs/title_list.dart';
 import 'package:movies/widget/home/movies_available_now.dart';
@@ -150,29 +151,27 @@ class _HomeState extends State<Home> {
                                         SizedBox(width: 16),
                                     scrollDirection: Axis.horizontal,
                                     itemCount: 10,
-                                    itemBuilder: (context, index) => bloc
-                                                .moviesAll?[index]
-                                                .mediumCoverImage ==
-                                            "https://yts.mx/assets/images/movies/the_garden_of_the_finzi_continis_2025/medium-cover.jpg"
-                                        ? SizedBox(
-                                            height: 0,
-                                            width: 0,
-                                          )
+                                    itemBuilder: (context, index) =>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////// POSTER /////////////////////////......//////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-                                        : CustomMoviePoster(
-                                            image: bloc.moviesAll?[index]
-                                                    .mediumCoverImage ??
-                                                "",
-                                            rating:
-                                                '${bloc.moviesAll?[index].rating}',
-                                            height: 250,
-                                            width: 150,
-                                            ratingHeight: 30,
-                                            ratingWidth: 50,
-                                          ),
+                                        CustomMoviePoster(
+                                      ontap: () {
+                                        Navigator.of(context).pushNamed(
+                                            AppRouts.movieDetails,
+                                            arguments: bloc.moviesAll![index]);
+                                      },
+                                      image: bloc.moviesAll?[index]
+                                              .mediumCoverImage ??
+                                          "",
+                                      rating:
+                                          '${bloc.moviesAll?[index].rating}',
+                                      height: 250,
+                                      width: 150,
+                                      ratingHeight: 30,
+                                      ratingWidth: 50,
+                                    ),
                                   ),
                                 ),
                               );

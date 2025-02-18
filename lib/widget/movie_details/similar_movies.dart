@@ -53,15 +53,16 @@ class SimilarMovies extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             );
                           }
-                          String? image = (snapshot.connectionState ==
-                                      ConnectionState.done &&
-                                  snapshot.data == true)
-                              ? imageUrl
-                              : "https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg";
                           return ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: CustomMoviePoster(
-                                  image: image,
+                                  ontap: () {
+                                    Navigator.of(context).pushNamed(
+                                        AppRouts.movieDetails,
+                                        arguments: bloc.movies[index]);
+                                  },
+                                  image: bloc.movies[index].mediumCoverImage
+                                      .toString(),
                                   rating: "${bloc.movies[index].rating}",
                                   height: h * 0.35,
                                   width: w * 0.45,
