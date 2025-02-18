@@ -21,11 +21,10 @@ class GetMovieDetails extends Cubit<DetailsMovieStates> {
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         final json = jsonDecode(res.body);
-        print("object");
+
         MovieDetailsModel model = MovieDetailsModel.fromJson(json);
         movie = model.data?.movie;
-        print("00000000000000");
-        print(movie);
+
         emit(DetailsMovieSuccessState());
       } else {
         emit(DetailsMovieErrorState(error: "Failed to load movie details"));
