@@ -3,6 +3,7 @@ import 'package:movies/core/static/app_theme.dart';
 import 'package:movies/routs.dart';
 
 void main() {
+  // configureDependencies();
   runApp(const MyApp());
 }
 

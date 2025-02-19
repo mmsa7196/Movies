@@ -12,8 +12,8 @@ Map<String, Widget Function(BuildContext)> routs = {
   AppRouts.home: (context) => const Home(),
   AppRouts.movieDetails: (context) => const MovieDetails(),
   AppRouts.login: (context) => const LoginScreen(),
-  AppRouts.register: (context) => const RegisterScreen(),
+  //AppRouts.register:
+  "/": (context) => const RegisterScreen(),
   AppRouts.forgetPass: (context) => const ForgetPasswordScreen(),
-  // AppRouts.bottonNavigator:
-  "/": (context) => const BottomNavigationBarScreen()
+  AppRouts.bottonNavigator: (context) => const BottomNavigationBarScreen()
 };
