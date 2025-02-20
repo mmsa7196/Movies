@@ -93,7 +93,11 @@ class MovieDetails extends StatelessWidget {
                           spacing: h * 0.15,
                           children: [
                             const AppBarDetails(),
-                            const IconPlay(),
+                            IconPlay(
+                              ontap: () {
+                                bloc.launchMovieUrl();
+                              },
+                            ),
                             Column(
                               spacing: h * 0.02,
                               crossAxisAlignment: CrossAxisAlignment.start,

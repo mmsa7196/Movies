@@ -1,141 +1,175 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/profile/get_user.dart';
+import 'package:movies/bloc/profile/states.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/button.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: EdgeInsets.all(16),
-            color: AppColors.secondary,
-            child: Column(
-              spacing: 10,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                              height: 100, width: 100, child: CircleAvatar()),
-                          Text(
-                            "data",
-                            style: textTheme.bodyLarge,
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "33",
-                            style: textTheme.titleLarge,
-                          ),
-                          Text(
-                            "data",
-                            style: textTheme.titleSmall,
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "33",
-                            style: textTheme.titleLarge,
-                          ),
-                          Text(
-                            "data",
-                            style: textTheme.titleSmall,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                /////button
-                Row(
+      child: BlocProvider(
+        create: (context) => GetProfileUser()..getUser(),
+        child: BlocBuilder<GetProfileUser, ProfileState>(
+            builder: (context, state) {
+          if (state is ProfileLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          var bloc = BlocProvider.of<GetProfileUser>(context);
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.all(16),
+                color: AppColors.secondary,
+                child: Column(
+                  spacing: 10,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(
-                      flex: 2,
-                      child: CustomButton(
-                          color: AppColors.button,
-                          widget: Text("Edit Profile",
-                              style: textTheme.bodyMedium!
-                                  .copyWith(color: AppColors.primary)),
-                          textColor: AppColors.primary,
-                          textStyle: textTheme.bodyMedium!
-                              .copyWith(color: AppColors.primary)),
-                    ),
-                    Expanded(
-                      child: CustomButton(
-                          border: false,
-                          color: AppColors.buttonRed,
-                          widget: Row(
-                            spacing: 5,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
                             children: [
-                              Text("Exit"),
-                              Icon(
-                                Icons.exit_to_app_rounded,
-                                color: AppColors.text,
-                              ),
+                              SizedBox(
+                                  child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.asset(
+                                  AppImages.avatars[bloc.avaterId],
+                                  height: h * 0.13,
+                                  width: w * 0.25,
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
+                              Text(
+                                bloc.name,
+                                style: textTheme.bodyLarge,
+                              )
                             ],
                           ),
-                          textColor: AppColors.primary,
-                          textStyle: textTheme.bodyMedium!),
+                          Column(
+                            children: [
+                              Text(
+                                "33",
+                                style: textTheme.titleSmall,
+                              ),
+                              Text(
+                                "Wish List",
+                                style: textTheme.bodyLarge,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "33",
+                                style: textTheme.titleSmall,
+                              ),
+                              Text(
+                                "History",
+                                style: textTheme.bodyLarge,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    /////button
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: CustomButton(
+                              color: AppColors.button,
+                              widget: Text("Edit Profile",
+                                  style: textTheme.bodyMedium!
+                                      .copyWith(color: AppColors.primary)),
+                              textColor: AppColors.primary,
+                              textStyle: textTheme.bodyMedium!
+                                  .copyWith(color: AppColors.primary)),
+                        ),
+                        Expanded(
+                          child: CustomButton(
+                              ontap: () {
+                                bloc.logOut(context);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, AppRouts.login, (route) => false);
+                              },
+                              border: false,
+                              color: AppColors.buttonRed,
+                              widget: Row(
+                                spacing: 5,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Exit"),
+                                  Icon(
+                                    Icons.exit_to_app_rounded,
+                                    color: AppColors.text,
+                                  ),
+                                ],
+                              ),
+                              textColor: AppColors.primary,
+                              textStyle: textTheme.bodyMedium!),
+                        ),
+                      ],
+                    ),
+                    /////////////
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.menu,
+                              color: AppColors.button,
+                              size: 40,
+                            ),
+                            Text("Watch List")
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.folder,
+                              color: AppColors.button,
+                              size: 40,
+                            ),
+                            Text("Histories")
+                          ],
+                        )
+                      ],
                     ),
                   ],
                 ),
-                /////////////
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.menu,
-                          color: AppColors.button,
-                          size: 40,
-                        ),
-                        Text("Watch List")
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.folder,
-                          color: AppColors.button,
-                          size: 40,
-                        ),
-                        Text("Histories")
-                      ],
-                    )
-                  ],
+              ),
+              Expanded(
+                child: Image.asset(
+                  AppImages.empty,
+                  height: h * 0.2,
+                  width: w * 0.4,
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Image.asset(
-              AppImages.empty,
-              height: h * 0.2,
-              width: w * 0.4,
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        }),
       ),
     );
   }
