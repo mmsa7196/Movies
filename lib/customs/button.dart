@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-  final String title;
+  final Widget? widget;
   final Color color;
   final Color textColor;
   final TextStyle textStyle;
@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton(
       {super.key,
       this.border = true,
-      required this.title,
+      required this.widget,
       this.color = AppColors.button,
       required this.textColor,
       required this.textStyle});
@@ -18,16 +18,15 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(10),
-      height: 50,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(15),
-          border:
-              border ? Border.all(width: 1, color: AppColors.button) : null),
-      child: Text(title, style: textStyle),
-    );
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(10),
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(15),
+            border:
+                border ? Border.all(width: 1, color: AppColors.button) : null),
+        child: widget);
   }
 }

@@ -10,5 +10,6 @@ class AppRouts {
 
   static const String forgetPass = "/forgetPass";
 
+  static const String profile = "/profile";
   static const String bottonNavigator = "/bottonNavigator";
 }

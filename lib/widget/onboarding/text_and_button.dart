@@ -66,7 +66,7 @@ class TextAndButton extends StatelessWidget {
               InkWell(
                 onTap: ontapTItleButton,
                 child: CustomButton(
-                    title: i > 4 ? "Finish" : titleButton,
+                    widget: i > 4 ? Text("Finish") : Text(titleButton),
                     textStyle: textStyle.bodyMedium!
                         .copyWith(color: AppColors.primary),
                     textColor: AppColors.primary),
@@ -76,7 +76,9 @@ class TextAndButton extends StatelessWidget {
                       ? InkWell(
                           onTap: ontapSecondTItleButton,
                           child: CustomButton(
-                            title: secondTItleButton,
+                            widget: Text(
+                              secondTItleButton,
+                            ),
                             textStyle: textStyle.bodyMedium!,
                             color: Colors.transparent,
                             textColor: AppColors.text,

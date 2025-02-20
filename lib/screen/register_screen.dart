@@ -7,6 +7,10 @@ import 'package:movies/core/class/app_images.dart';
 import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/input_field.dart';
 import 'package:movies/customs/lang_mode_btn.dart';
+import 'package:movies/function/validate/email_validate.dart';
+import 'package:movies/function/validate/name_validat.dart';
+import 'package:movies/function/validate/pass_validate.dart';
+import 'package:movies/function/validate/phone_validate.dart';
 import 'package:movies/screen/logIn_Screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -80,132 +84,143 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        height: 94,
-                        child: PageView.builder(
-                            controller: _pageController,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              bloc.avaterId = index;
-                              return Image.asset(AppImages.avatars[index]);
-                            },
-                            itemCount: AppImages.avatars.length),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 12),
-                        child: Text(
-                          "Avatar",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      InputField(
-                        controller: bloc.nameController,
-                        validate: () {},
-                        lable: "Name",
-                        prefixIcon: Image.asset(AppImages.nameIcon),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      InputField(
-                        controller: bloc.emailController,
-                        validate: () {},
-                        lable: "Email",
-                        prefixIcon: Image.asset(AppImages.emailIcon),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      InputField(
-                        controller: bloc.passwordController,
-                        validate: () {},
-                        lable: "Password",
-                        prefixIcon: Image.asset(AppImages.passwordIcon),
-                        suffixIcon: Icon(
-                          Icons.visibility_off_rounded,
-                          color: AppColors.text,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      InputField(
-                        controller: bloc.confirmPasswordController,
-                        validate: () {},
-                        lable: "Confirm Password",
-                        prefixIcon: Image.asset(AppImages.passwordIcon),
-                        suffixIcon: Icon(
-                          Icons.visibility_off_rounded,
-                          color: AppColors.text,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      InputField(
-                        controller: bloc.phoneController,
-                        validate: () {},
-                        lable: "Phone Number",
-                        prefixIcon: Image.asset(AppImages.phoneIcon),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            bloc.register();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            child: Text(
-                              "Create Account",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: AppColors.primary),
-                            ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 17, bottom: 18),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Already Have Account ?",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(fontSize: 14),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, LoginScreen.routeName);
+                child: Form(
+                  key: bloc.formKey,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          height: 94,
+                          child: PageView.builder(
+                              controller: _pageController,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                bloc.avaterId = index;
+                                return Image.asset(AppImages.avatars[index]);
                               },
+                              itemCount: AppImages.avatars.length),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 12),
+                          child: Text(
+                            "Avatar",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        InputField(
+                          controller: bloc.nameController,
+                          validate: (val) =>
+                              nameValidate(bloc.nameController.text),
+                          lable: "Name",
+                          prefixIcon: Image.asset(AppImages.nameIcon),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        InputField(
+                          controller: bloc.emailController,
+                          validate: (val) =>
+                              emailValidate(bloc.emailController.text),
+                          lable: "Email",
+                          prefixIcon: Image.asset(AppImages.emailIcon),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        InputField(
+                          controller: bloc.passwordController,
+                          validate: (val) =>
+                              passValidate(bloc.passwordController.text, 6, 25),
+                          lable: "Password",
+                          prefixIcon: Image.asset(AppImages.passwordIcon),
+                          suffixIcon: Icon(
+                            Icons.visibility_off_rounded,
+                            color: AppColors.text,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        InputField(
+                          controller: bloc.confirmPasswordController,
+                          validate: (val) => passValidate(
+                              bloc.confirmPasswordController.text, 6, 25,
+                              isRePass: true,
+                              pass: bloc.passwordController.text),
+                          lable: "Confirm Password",
+                          prefixIcon: Image.asset(AppImages.passwordIcon),
+                          suffixIcon: Icon(
+                            Icons.visibility_off_rounded,
+                            color: AppColors.text,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        InputField(
+                          controller: bloc.phoneController,
+                          validate: (val) =>
+                              phoneValidate(bloc.phoneController.text),
+                          lable: "Phone Number",
+                          prefixIcon: Image.asset(AppImages.phoneIcon),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              bloc.register();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
-                                "Login",
+                                "Create Account",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
-                                    .copyWith(
-                                        fontSize: 14, color: AppColors.button),
+                                    .copyWith(color: AppColors.primary),
                               ),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 17, bottom: 18),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Already Have Account ?",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 14),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, LoginScreen.routeName);
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          fontSize: 14,
+                                          color: AppColors.button),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            LangModeBtn(
+                              mode: true,
                             ),
                           ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          LangModeBtn(
-                            mode: true,
-                          ),
-                        ],
-                      )
-                    ]),
+                        )
+                      ]),
+                ),
               ),
             ),
           );

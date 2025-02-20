@@ -25,7 +25,7 @@ class _MoviesAvailableNowState extends State<MoviesAvailableNow> {
       height: 320,
       child: PageView.builder(
         controller: widget.pageController,
-        itemCount: 10,
+        itemCount: 20,
         itemBuilder: (context, index) {
           double scale = (widget.currentPage - index).abs() <= 1
               ? 1 - (widget.currentPage - index).abs() * 0.3

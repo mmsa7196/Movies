@@ -51,6 +51,6 @@ class _bottomState extends State<BottomNavigationBarScreen> {
     Home(),
     SearchTab(),
     ExploreTab(),
-    ProfielTab(),
+    ProfileTab(),
   ];
 }

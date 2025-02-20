@@ -25,7 +25,7 @@ class TextAndWatchButton extends StatelessWidget {
         ),
         CustomButton(
           border: false,
-          title: "Watch",
+          widget: Text("Watch"),
           textColor: AppColors.text,
           textStyle: textTheme.bodyLarge!,
           color: AppColors.buttonRed,
