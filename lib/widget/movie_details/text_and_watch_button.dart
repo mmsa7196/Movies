@@ -5,8 +5,9 @@ import 'package:movies/customs/button.dart';
 class TextAndWatchButton extends StatelessWidget {
   final String title;
   final String year;
+  final void Function()? ontap;
   const TextAndWatchButton(
-      {super.key, required this.title, required this.year});
+      {super.key, required this.title, required this.year, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,9 @@ class TextAndWatchButton extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         CustomButton(
+          ontap: ontap,
           border: false,
           widget: Text("Watch"),
-          textColor: AppColors.text,
-          textStyle: textTheme.bodyLarge!,
           color: AppColors.buttonRed,
         )
       ],

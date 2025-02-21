@@ -40,8 +40,12 @@ class LoginScreen extends StatelessWidget {
               builder: (context) => AlertDialog(
                 title: Text("Error"),
                 content: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("email or password is wrong"),
+                    Text(
+                      "email or password is wrong",
+                      style: TextStyle(color: AppColors.primary),
+                    ),
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);

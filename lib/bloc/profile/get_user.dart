@@ -22,5 +22,6 @@ class GetProfileUser extends Cubit<ProfileState> {
     shapref.remove("phone");
     shapref.remove("pass");
     shapref.remove("avaterId");
+    shapref.remove("isLogin");
   }
 }

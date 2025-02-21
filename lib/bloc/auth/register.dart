@@ -68,6 +68,7 @@ class RegisterUser extends Cubit<RegisterStates> {
           shPref.setString("phone", user!.phone.toString());
           shPref.setString("pass", user!.password.toString());
           shPref.setInt("avaterId", user!.avaterId!.toInt());
+          shPref.setBool("isLogin", true);
           emit(RegisterSuccessState());
         } else {
           print("Error : ${response.body}");

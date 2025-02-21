@@ -66,10 +66,16 @@ class TextAndButton extends StatelessWidget {
               InkWell(
                 onTap: ontapTItleButton,
                 child: CustomButton(
-                    widget: i > 4 ? Text("Finish") : Text(titleButton),
-                    textStyle: textStyle.bodyMedium!
-                        .copyWith(color: AppColors.primary),
-                    textColor: AppColors.primary),
+                  widget: i > 4
+                      ? Text(
+                          "Finish",
+                          style: TextStyle(color: AppColors.primary),
+                        )
+                      : Text(
+                          titleButton,
+                          style: TextStyle(color: AppColors.primary),
+                        ),
+                ),
               ),
               i > 0
                   ? i >= 2
@@ -79,9 +85,7 @@ class TextAndButton extends StatelessWidget {
                             widget: Text(
                               secondTItleButton,
                             ),
-                            textStyle: textStyle.bodyMedium!,
                             color: Colors.transparent,
-                            textColor: AppColors.text,
                           ),
                         )
                       : SizedBox()

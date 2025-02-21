@@ -3,6 +3,7 @@ import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/widget/onboarding/screen_color.dart';
 import 'package:movies/widget/onboarding/static/onboarding_list.dart';
 import 'package:movies/widget/onboarding/text_and_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({
@@ -59,11 +60,14 @@ class _OnBoardingState extends State<OnBoarding> {
                     description: "${onBoarding[index]["description"]}",
                   )
                 : TextAndButton(
-                    ontapTItleButton: () {
+                    ontapTItleButton: () async {
                       _pageController.nextPage(
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeOutCirc);
                       if (index == 5) {
+                        SharedPreferences shPre =
+                            await SharedPreferences.getInstance();
+                        shPre.setBool("skipOnBoarding", true);
                         Navigator.pushNamed(context, AppRouts.login);
                       }
                       ;
@@ -73,7 +77,6 @@ class _OnBoardingState extends State<OnBoarding> {
                       _pageController.previousPage(
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInSine);
-                      print(index);
                       setState(() {});
                     },
                     i: index,

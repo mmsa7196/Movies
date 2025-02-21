@@ -103,6 +103,9 @@ class MovieDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextAndWatchButton(
+                                  ontap: () {
+                                    bloc.launchMovieUrl();
+                                  },
                                   title: movie.title ?? '',
                                   year: movie.year?.toString() ?? '',
                                 ),

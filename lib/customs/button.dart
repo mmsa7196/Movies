@@ -4,8 +4,7 @@ import 'package:movies/core/class/app_colors.dart';
 class CustomButton extends StatelessWidget {
   final Widget? widget;
   final Color color;
-  final Color textColor;
-  final TextStyle textStyle;
+
   final bool border;
   final void Function()? ontap;
   const CustomButton(
@@ -13,8 +12,6 @@ class CustomButton extends StatelessWidget {
       this.border = true,
       required this.widget,
       this.color = AppColors.button,
-      required this.textColor,
-      required this.textStyle,
       this.ontap});
 
   @override

@@ -98,36 +98,33 @@ class _ProfileTabState extends State<ProfileTab> {
                         Expanded(
                           flex: 2,
                           child: CustomButton(
-                              color: AppColors.button,
-                              widget: Text("Edit Profile",
-                                  style: textTheme.bodyMedium!
-                                      .copyWith(color: AppColors.primary)),
-                              textColor: AppColors.primary,
-                              textStyle: textTheme.bodyMedium!
-                                  .copyWith(color: AppColors.primary)),
+                            color: AppColors.button,
+                            widget: Text("Edit Profile",
+                                style: textTheme.bodyMedium!
+                                    .copyWith(color: AppColors.primary)),
+                          ),
                         ),
                         Expanded(
                           child: CustomButton(
-                              ontap: () {
-                                bloc.logOut(context);
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, AppRouts.login, (route) => false);
-                              },
-                              border: false,
-                              color: AppColors.buttonRed,
-                              widget: Row(
-                                spacing: 5,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Exit"),
-                                  Icon(
-                                    Icons.exit_to_app_rounded,
-                                    color: AppColors.text,
-                                  ),
-                                ],
-                              ),
-                              textColor: AppColors.primary,
-                              textStyle: textTheme.bodyMedium!),
+                            ontap: () {
+                              bloc.logOut(context);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, AppRouts.login, (route) => false);
+                            },
+                            border: false,
+                            color: AppColors.buttonRed,
+                            widget: Row(
+                              spacing: 5,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Exit"),
+                                Icon(
+                                  Icons.exit_to_app_rounded,
+                                  color: AppColors.text,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
