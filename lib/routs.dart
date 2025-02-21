@@ -7,6 +7,7 @@ import 'package:movies/screen/forget_password_screen.dart';
 import 'package:movies/screen/login_Screen.dart';
 import 'package:movies/screen/movie_details.dart';
 import 'package:movies/screen/register_screen.dart';
+import 'package:movies/screen/update_profile_Screen.dart';
 
 Map<String, Widget Function(BuildContext)> routs = {
   AppRouts.onBoarding: (context) => const OnBoarding(),
@@ -15,5 +16,7 @@ Map<String, Widget Function(BuildContext)> routs = {
   AppRouts.login: (context) => const LoginScreen(),
   AppRouts.register: (context) => const RegisterScreen(),
   AppRouts.forgetPass: (context) => const ForgetPasswordScreen(),
+  AppRouts.updateProfile: (context) => const UpdateProfileScreen(),
   AppRouts.bottonNavigator: (context) => const BottomNavigationBarScreen(),
+
 };
