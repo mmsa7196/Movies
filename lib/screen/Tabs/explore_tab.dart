@@ -70,31 +70,47 @@ class _ExploreTabState extends State<ExploreTab> {
                     return const Center(child: Text("لم يتم العثور على أفلام"));
                   }
 
-                  return Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        childAspectRatio: 0.6,
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 0.6,
+                          ),
+                          itemCount: movies.length > 30 ? 30 : movies.length,
+                          itemBuilder: (context, index) => CustomMoviePoster(
+                            ontap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRouts.movieDetails,
+                                arguments: movies[index],
+                              );
+                            },
+                            image: movies[index].mediumCoverImage!,
+                            rating: movies[index].rating.toString(),
+                            height: h * 0.35,
+                            width: w * 0.45,
+                            ratingHeight: 35,
+                            ratingWidth: 70,
+                          ),
+                        ),
                       ),
-                      itemCount: movies.length > 30 ? 30 : movies.length,
-                      itemBuilder: (context, index) => CustomMoviePoster(
-                        ontap: () {
-                          Navigator.of(context).pushNamed(
-                            AppRouts.movieDetails,
-                            arguments: movies[index],
-                          );
-                        },
-                        image: movies[index].mediumCoverImage!,
-                        rating: movies[index].rating.toString(),
-                        height: h * 0.35,
-                        width: w * 0.45,
-                        ratingHeight: 35,
-                        ratingWidth: 70,
-                      ),
-                    ),
+                      // SizedBox(
+                      //   height: 20,
+                      //   width: w,
+                      //   child: CustomButton(
+                      //     widget: Row(
+                      //       children: [
+                      //         Text("More"),
+                      //         Icon(Icons.arrow_drop_down_rounded)
+                      //       ],
+                      //     ),
+                      //   ),
+                      // )
+                    ],
                   );
                 }
                 return const Center(child: Text("لا توجد بيانات "));

@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         InputField(
                           controller: bloc.passwordController,
                           validate: (val) =>
-                              passValidate(bloc.passwordController.text, 6, 25),
+                              passValidate(bloc.passwordController.text, 8, 25),
                           lable: "Password",
                           prefixIcon: Image.asset(AppImages.passwordIcon),
                           suffixIcon: Icon(
@@ -144,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         InputField(
                           controller: bloc.confirmPasswordController,
                           validate: (val) => passValidate(
-                              bloc.confirmPasswordController.text, 6, 25,
+                              bloc.confirmPasswordController.text, 8, 25,
                               isRePass: true,
                               pass: bloc.passwordController.text),
                           lable: "Confirm Password",

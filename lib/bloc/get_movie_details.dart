@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies/bloc/states/details_movie.dart';
 import 'package:movies/model/movie_details_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GetMovieDetails extends Cubit<DetailsMovieStates> {
   Movie? movie;
@@ -11,7 +12,6 @@ class GetMovieDetails extends Cubit<DetailsMovieStates> {
   GetMovieDetails({this.movie}) : super(DetailsMovieStatesIni());
 
   void getMovieDetails(String id) async {
-    print(id);
     try {
       emit(DetailsMovieLoadingState());
       Uri url = Uri.parse(
@@ -32,6 +32,13 @@ class GetMovieDetails extends Cubit<DetailsMovieStates> {
     } catch (e) {
       print("---------------$e");
       emit(DetailsMovieErrorState(error: e.toString()));
+    }
+  }
+
+  Future<void> launchMovieUrl() async {
+    Uri url = Uri.parse(movie!.url.toString());
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 }
