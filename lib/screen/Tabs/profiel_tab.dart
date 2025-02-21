@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/button.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -70,14 +71,19 @@ class ProfileTab extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 2,
-                      child: CustomButton(
-                          color: AppColors.button,
-                          widget: Text("Edit Profile",
-                              style: textTheme.bodyMedium!
-                                  .copyWith(color: AppColors.primary)),
-                          textColor: AppColors.primary,
-                          textStyle: textTheme.bodyMedium!
-                              .copyWith(color: AppColors.primary)),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRouts.updateProfile);
+                        },
+                        child: CustomButton(
+                            color: AppColors.button,
+                            widget: Text("Edit Profile",
+                                style: textTheme.bodyMedium!
+                                    .copyWith(color: AppColors.primary)),
+                            textColor: AppColors.primary,
+                            textStyle: textTheme.bodyMedium!
+                                .copyWith(color: AppColors.primary)),
+                      ),
                     ),
                     Expanded(
                       child: CustomButton(

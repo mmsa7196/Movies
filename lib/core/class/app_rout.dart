@@ -12,4 +12,5 @@ class AppRouts {
 
   static const String profile = "/profile";
   static const String bottonNavigator = "/bottonNavigator";
+  static const String updateProfile = "/updateProfile";
 }
