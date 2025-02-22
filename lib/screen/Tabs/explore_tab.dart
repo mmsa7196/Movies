@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/get_explore.dart';
@@ -52,8 +53,7 @@ class _ExploreTabState extends State<ExploreTab> {
               listener: (context, state) {
                 if (state is ExploreErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('حدث خطأ أثناء تحميل البيانات')),
+                    SnackBar(content: Text("error_loading_movie_details".tr())),
                   );
                 }
               },
@@ -62,12 +62,12 @@ class _ExploreTabState extends State<ExploreTab> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (state is ExploreErrorState) {
-                  return const Center(child: Text("فشل تحميل الأفلام"));
+                  return Center(child: Text("error_loading_movies".tr()));
                 }
                 if (state is ExploreSuccessState) {
                   var movies = getExploreBloc.movies;
                   if (movies.isEmpty) {
-                    return const Center(child: Text("لم يتم العثور على أفلام"));
+                    return Center(child: Text("no_movies_available".tr()));
                   }
 
                   return Column(
@@ -113,7 +113,7 @@ class _ExploreTabState extends State<ExploreTab> {
                     ],
                   );
                 }
-                return const Center(child: Text("لا توجد بيانات "));
+                return Center(child: Text("no_movie_details_available".tr()));
               },
             ),
           ],

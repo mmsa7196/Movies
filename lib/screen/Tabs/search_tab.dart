@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/get_search.dart';
@@ -53,7 +54,7 @@ class _SearchTabState extends State<SearchTab> {
                     },
                     validate: () {},
                     controller: cTextSearch,
-                    lable: "Search",
+                    lable: "search".tr(),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Image.asset(
