@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/customs/button.dart';
@@ -68,11 +69,11 @@ class TextAndButton extends StatelessWidget {
                 child: CustomButton(
                   widget: i > 4
                       ? Text(
-                          "Finish",
+                          "finish_btn".tr(),
                           style: TextStyle(color: AppColors.primary),
                         )
                       : Text(
-                          titleButton,
+                          "next_btn".tr(),
                           style: TextStyle(color: AppColors.primary),
                         ),
                 ),
@@ -83,7 +84,7 @@ class TextAndButton extends StatelessWidget {
                           onTap: ontapSecondTItleButton,
                           child: CustomButton(
                             widget: Text(
-                              secondTItleButton,
+                              "back_btn".tr(),
                             ),
                             color: Colors.transparent,
                           ),

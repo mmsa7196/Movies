@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/get_movie_details.dart';
@@ -39,7 +40,7 @@ class MovieDetails extends StatelessWidget {
             }
 
             if (state is DetailsMovieErrorState) {
-              return const Center(child: Text("Error loading movie details"));
+              return Center(child: Text("error_loading_movie_details".tr()));
             }
 
             if (state is DetailsMovieSuccessState) {
@@ -47,7 +48,7 @@ class MovieDetails extends StatelessWidget {
               final movie = bloc.movie;
 
               if (movie == null) {
-                return const Center(child: Text("No movie details available"));
+                return Center(child: Text("no_movie_details_available".tr()));
               }
 
               return ListView(
@@ -115,7 +116,7 @@ class MovieDetails extends StatelessWidget {
                                   star: movie.rating?.toString() ?? '0',
                                 ),
                                 Text(
-                                  "Screen Shots",
+                                  "screen_shots".tr(),
                                   style: textTheme.titleMedium,
                                 ),
                                 if (movie.mediumScreenshotImage1 != null)
@@ -129,7 +130,7 @@ class MovieDetails extends StatelessWidget {
                                       image: movie.mediumScreenshotImage3!),
                                 if (movie.genres != null)
                                   Text(
-                                    "Screen Shots",
+                                    "similar".tr(),
                                     style: textTheme.titleMedium,
                                   ),
                                 if (movie.genres != null)
@@ -141,11 +142,13 @@ class MovieDetails extends StatelessWidget {
                                     ),
                                   ),
                                 if (movieChoosen.summary?.isNotEmpty ?? false)
-                                  Text("Summary", style: textTheme.titleMedium),
+                                  Text("summary".tr(),
+                                      style: textTheme.titleMedium),
                                 SummaryMovie(title: movieChoosen.summary!),
                                 if (movie.cast != null &&
                                     movie.cast!.isNotEmpty)
-                                  Text("Cast", style: textTheme.titleMedium),
+                                  Text("cast".tr(),
+                                      style: textTheme.titleMedium),
                                 if (movie.cast != null)
                                   ...movie.cast!.map((cast) => CastMovie(
                                         name: cast.name ?? '',
@@ -153,7 +156,8 @@ class MovieDetails extends StatelessWidget {
                                         image: cast.urlSmallImage ?? '',
                                       )),
                                 if (movie.genres != null)
-                                  Text("Genre", style: textTheme.titleMedium),
+                                  Text("genres".tr(),
+                                      style: textTheme.titleMedium),
                                 Wrap(
                                     spacing: 5,
                                     runSpacing: 10,
@@ -173,7 +177,7 @@ class MovieDetails extends StatelessWidget {
               );
             }
 
-            return const Center(child: Text("Unexpected error "));
+            return Center(child: Text("unexpected_error".tr()));
           },
         ),
       ),

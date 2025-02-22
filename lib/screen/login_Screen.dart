@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/auth/login.dart';
@@ -10,9 +11,17 @@ import 'package:movies/customs/lang_mode_btn.dart';
 import 'package:movies/function/validate/email_validate.dart';
 import 'package:movies/function/validate/pass_validate.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String routeName = "LoginScreen";
-  const LoginScreen({super.key});
+
+  LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool langMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +33,7 @@ class LoginScreen extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                  title: Text("Loading.."),
+                  title: Text("loading".tr()),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -38,12 +47,12 @@ class LoginScreen extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text("Error"),
+                title: Text("error".tr()),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "email or password is wrong",
+                      "email_or_password_is_wrong".tr(),
                       style: TextStyle(color: AppColors.primary),
                     ),
                     InkWell(
@@ -59,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Icon(Icons.rotate_left, color: AppColors.text),
-                            Text("Try again")
+                            Text("try_again".tr())
                           ],
                         ),
                       ),
@@ -75,7 +84,6 @@ class LoginScreen extends StatelessWidget {
           }
         }, builder: (context, state) {
           var bloc = BlocProvider.of<LogInUser>(context);
-
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 19),
@@ -92,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                       controller: bloc.emailController,
                       validate: (val) =>
                           emailValidate(bloc.emailController.text),
-                      lable: "Email",
+                      lable: "email".tr(),
                       prefixIcon: Image.asset(AppImages.emailIcon),
                     ),
                     Padding(
@@ -101,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                         controller: bloc.passwordController,
                         validate: (val) =>
                             passValidate(bloc.passwordController.text, 8, 25),
-                        lable: "Password",
+                        lable: "password".tr(),
                         prefixIcon: Image.asset(AppImages.passwordIcon),
                         suffixIcon: Icon(
                           Icons.visibility_off_rounded,
@@ -116,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.pushNamed(context, AppRouts.forgetPass);
                         },
                         child: Text(
-                          "Forget Password ?",
+                          "forget_password".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -133,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 18),
                           child: Text(
-                            "Login",
+                            "login_btn".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -146,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don’t Have Account ?",
+                          "don’t_have_account".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -157,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.pushNamed(context, AppRouts.register);
                           },
                           child: Text(
-                            "Create Account",
+                            "create_one".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -180,7 +188,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "OR",
+                            "or".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -210,7 +218,7 @@ class LoginScreen extends StatelessWidget {
                                 width: 11,
                               ),
                               Text(
-                                "Login with Google",
+                                "login_with_Google_btn".tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -224,7 +232,17 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        LangModeBtn(mode: true),
+                        GestureDetector(
+                            onTap: () {
+                              langMode = !langMode;
+                              if (langMode == false) {
+                                context.setLocale(Locale("en"));
+                              } else {
+                                context.setLocale(Locale("ar"));
+                              }
+                              setState(() {});
+                            },
+                            child: LangModeBtn(mode: langMode)),
                       ],
                     ),
                   ],

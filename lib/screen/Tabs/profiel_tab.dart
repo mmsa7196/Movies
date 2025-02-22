@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/profile/get_user.dart';
@@ -71,7 +72,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 style: textTheme.titleSmall,
                               ),
                               Text(
-                                "Wish List",
+                                "watch_list".tr(),
                                 style: textTheme.bodyLarge,
                               )
                             ],
@@ -83,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 style: textTheme.titleSmall,
                               ),
                               Text(
-                                "History",
+                                "history".tr(),
                                 style: textTheme.bodyLarge,
                               )
                             ],
@@ -103,7 +104,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   context, AppRouts.updateProfile);
                             },
                             color: AppColors.button,
-                            widget: Text("Edit Profile",
+                            widget: Text("edit_profile_btn".tr(),
                                 style: textTheme.bodyMedium!
                                     .copyWith(color: AppColors.primary)),
                           ),
@@ -121,7 +122,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               spacing: 5,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Exit"),
+                                Text("exit_btn".tr()),
                                 Icon(
                                   Icons.exit_to_app_rounded,
                                   color: AppColors.text,
@@ -143,7 +144,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               color: AppColors.button,
                               size: 40,
                             ),
-                            Text("Watch List")
+                            Text("watch_list".tr())
                           ],
                         ),
                         Column(
@@ -153,7 +154,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               color: AppColors.button,
                               size: 40,
                             ),
-                            Text("Histories")
+                            Text("history".tr())
                           ],
                         )
                       ],

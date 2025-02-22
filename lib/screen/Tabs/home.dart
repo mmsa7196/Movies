@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/home/get_all_movies.dart';
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
                 return Center(child: CircularProgressIndicator());
               }
               if (state is HomeGetErrorStateMVN) {
-                return Center(child: Text("Error loading movies"));
+                return Center(child: Text("error_loading_movies".tr()));
               }
               if (state is HomeGetSuccessStateMAN) {
                 var blocAvailableNow = context.read<GetMoviesAvailableNow>();
@@ -114,7 +115,8 @@ class _HomeState extends State<Home> {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////// TITLE WATCH MORE /////////////////////////......//////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-                        CustomTitleList(title: "Action", subTitle: "See more"),
+                        CustomTitleList(
+                            title: "action".tr(), subTitle: "see_more".tr()),
                         SizedBox(height: 16),
                         /////////////////////////////////////////////////////////////
                         //////////////////////  BLOC NUMBER 2  //////////////////
@@ -180,7 +182,8 @@ class _HomeState extends State<Home> {
                             /////////////////////////////////////////////////////////////
                             ////////////////////// ERROR //////////////////////////////
                             /////////////////////////////////////////////////////////////
-                            return Center(child: Text("No movies available"));
+                            return Center(
+                                child: Text("no_movies_available".tr()));
                           },
                         ),
                       ],
@@ -188,7 +191,7 @@ class _HomeState extends State<Home> {
                   ],
                 );
               }
-              return Center(child: Text(" error"));
+              return Center(child: Text("error".tr()));
             },
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/profile/upddate/update_profile.dart';
@@ -19,7 +20,7 @@ class UpdateProfileScreen extends StatelessWidget {
       create: (context) => UpdateProfileBloc()..getUser(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Pick Avatar"),
+          title: Text("pick_avatar".tr()),
         ),
         body: BlocConsumer<UpdateProfileBloc, UpdateStates>(
             listener: (context, state) {
@@ -93,7 +94,7 @@ class UpdateProfileScreen extends StatelessWidget {
                     child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          "Reset Password",
+                          "reset_password".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -111,7 +112,7 @@ class UpdateProfileScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Text(
-                        "Delete Account",
+                        "delete_account_btn".tr(),
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontSize: 20, fontWeight: FontWeight.w400),
                       ),
@@ -125,7 +126,7 @@ class UpdateProfileScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Text(
-                        "Update Data",
+                        "update_data_btn".tr(),
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontSize: 20, fontWeight: FontWeight.w400),
                       ),

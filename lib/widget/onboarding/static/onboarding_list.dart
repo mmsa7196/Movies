@@ -1,12 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
 
 List<Map<String, dynamic>> onBoarding = [
   {
-    "title": "Find Your Next \nFavorite Movie Here",
-    "description":
-        "Get access to a huge library of movies to suit all tastes. You will surely like it.",
+    "title": "onboarding_1_title".tr(),
+    "description": "onboarding_1_content".tr(),
     "image": AppImages.onboarding1,
     "colors": [
       AppColors.primary,
@@ -15,9 +15,8 @@ List<Map<String, dynamic>> onBoarding = [
     ]
   },
   {
-    "title": "Discover Movies",
-    "description":
-        "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
+    "title": "onboarding_2_title".tr(),
+    "description": "onboarding_2_content".tr(),
     "image": AppImages.onboarding2,
     "colors": [
       AppColors.blueScreen,
@@ -26,9 +25,8 @@ List<Map<String, dynamic>> onBoarding = [
     ]
   },
   {
-    "title": "Explore All Genres",
-    "description":
-        "Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.",
+    "title": "onboarding_3_title".tr(),
+    "description": "onboarding_3_content".tr(),
     "image": AppImages.onboarding3,
     "colors": [
       AppColors.redScreen,
@@ -37,9 +35,8 @@ List<Map<String, dynamic>> onBoarding = [
     ]
   },
   {
-    "title": "Create Watchlists",
-    "description":
-        "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.",
+    "title": "onboarding_4_title".tr(),
+    "description": "onboarding_4_content".tr(),
     "image": AppImages.onboarding4,
     "colors": [
       AppColors.moveScreen,
@@ -48,9 +45,8 @@ List<Map<String, dynamic>> onBoarding = [
     ]
   },
   {
-    "title": "Rate, Review, and Learn",
-    "description":
-        "Share your thoughts on the movies you've watched. Dive deep into film details and help others discover great movies with your reviews.",
+    "title": "onboarding_5_title".tr(),
+    "description": "onboarding_5_content".tr(),
     "image": AppImages.onboarding5,
     "colors": [
       AppColors.redSecondScreen,
@@ -59,7 +55,7 @@ List<Map<String, dynamic>> onBoarding = [
     ]
   },
   {
-    "title": "Start Watching Now",
+    "title": "onboarding_6_title".tr(),
     "description": "",
     "image": AppImages.onboarding6,
     "colors": [

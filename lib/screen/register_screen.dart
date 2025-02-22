@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/bloc/auth/register.dart';
@@ -23,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   int avaterId = 0;
   final PageController _pageController =
       PageController(initialPage: 4, viewportFraction: .3);
+  bool langMode = false;
   @override
   void initState() {
     super.initState();
@@ -43,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                  title: Text("Loading.."),
+                  title: Text("loading".tr()),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -57,13 +59,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text("Error"),
+                title: Text("error".tr()),
                 content: Column(
                   spacing: 10,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "User already exist",
+                      "user_already_exist".tr(),
                       style: TextStyle(color: AppColors.primary),
                     ),
                     Row(
@@ -80,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: BoxDecoration(
                                 color: AppColors.green,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text("Log in"),
+                            child: Text("login_btn".tr()),
                           ),
                         ),
                         InkWell(
@@ -96,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Icon(Icons.rotate_left, color: AppColors.text),
-                                Text("Try again")
+                                Text("try_again".tr())
                               ],
                             ),
                           ),
@@ -112,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text("Success"),
+                title: Text("success".tr()),
                 content: InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -125,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: BoxDecoration(
                         color: AppColors.green,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Text("Log in"),
+                    child: Text("login_btn".tr()),
                   ),
                 ),
               ),
@@ -136,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           var bloc = BlocProvider.of<RegisterUser>(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text("Register"),
+              title: Text("register".tr()),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -163,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 12),
                           child: Text(
-                            "Avatar",
+                            "avatar".tr(),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -171,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: bloc.nameController,
                           validate: (val) =>
                               nameValidate(bloc.nameController.text),
-                          lable: "Name",
+                          lable: "name".tr(),
                           prefixIcon: Image.asset(AppImages.nameIcon),
                         ),
                         SizedBox(
@@ -181,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: bloc.emailController,
                           validate: (val) =>
                               emailValidate(bloc.emailController.text),
-                          lable: "Email",
+                          lable: "email".tr(),
                           prefixIcon: Image.asset(AppImages.emailIcon),
                         ),
                         SizedBox(
@@ -191,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: bloc.passwordController,
                           validate: (val) =>
                               passValidate(bloc.passwordController.text, 8, 25),
-                          lable: "Password",
+                          lable: "password".tr(),
                           prefixIcon: Image.asset(AppImages.passwordIcon),
                           suffixIcon: Icon(
                             Icons.visibility_off_rounded,
@@ -207,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               bloc.confirmPasswordController.text, 8, 25,
                               isRePass: true,
                               pass: bloc.passwordController.text),
-                          lable: "Confirm Password",
+                          lable: "confirm_pass".tr(),
                           prefixIcon: Image.asset(AppImages.passwordIcon),
                           suffixIcon: Icon(
                             Icons.visibility_off_rounded,
@@ -221,7 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: bloc.phoneController,
                           validate: (val) =>
                               phoneValidate(bloc.phoneController.text),
-                          lable: "Phone Number",
+                          lable: "phone".tr(),
                           prefixIcon: Image.asset(AppImages.phoneIcon),
                         ),
                         SizedBox(
@@ -234,7 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
-                                "Create Account",
+                                "create_account_btn".tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -247,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Already Have Account ?",
+                                "already_have_account".tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -259,7 +261,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       context, LoginScreen.routeName);
                                 },
                                 child: Text(
-                                  "Login",
+                                  "login_btn".tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
@@ -274,8 +276,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            LangModeBtn(
-                              mode: true,
+                            GestureDetector(
+                              onTap: () {
+                                langMode = !langMode;
+                                if (langMode == false) {
+                                  context.setLocale(Locale("en"));
+                                } else {
+                                  context.setLocale(Locale("ar"));
+                                }
+                                setState(() {});
+                              },
+                              child: LangModeBtn(
+                                mode: langMode,
+                              ),
                             ),
                           ],
                         )

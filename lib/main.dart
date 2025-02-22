@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/core/static/app_theme.dart';
@@ -7,8 +8,17 @@ import 'package:movies/routs.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final auth = await CheckAuth.init();
-  runApp(MyApp(
-    auth: auth,
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    supportedLocales: [
+      Locale("en"),
+      Locale("ar"),
+    ],
+    path: "assets/translations",
+    fallbackLocale: Locale("en"),
+    child: MyApp(
+      auth: auth,
+    ),
   ));
 }
 
@@ -19,6 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       initialRoute: auth.skipOnBoarding == false
