@@ -6,13 +6,14 @@ class GetProfileUser extends Cubit<ProfileState> {
   GetProfileUser() : super(ProfileInitState());
 
   String name = "";
-  int avaterId = 1;
+  int avaterId = 0;
   late SharedPreferences shapref;
   getUser() async {
     emit(ProfileLoadingState());
     shapref = await SharedPreferences.getInstance();
     name = shapref.getString("name") ?? "";
-    avaterId = shapref.getInt("avaterId") ?? 1;
+    avaterId = shapref.getInt("avaterId") ?? 0;
+    print(avaterId);
     emit(ProfileSuccessState());
   }
 
@@ -23,5 +24,7 @@ class GetProfileUser extends Cubit<ProfileState> {
     shapref.remove("pass");
     shapref.remove("avaterId");
     shapref.remove("isLogin");
+    shapref.remove("id");
+    shapref.remove("token");
   }
 }

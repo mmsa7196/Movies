@@ -98,6 +98,10 @@ class _ProfileTabState extends State<ProfileTab> {
                         Expanded(
                           flex: 2,
                           child: CustomButton(
+                            ontap: () {
+                              Navigator.pushNamed(
+                                  context, AppRouts.updateProfile);
+                            },
                             color: AppColors.button,
                             widget: Text("Edit Profile",
                                 style: textTheme.bodyMedium!

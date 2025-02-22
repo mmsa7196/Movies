@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:movies/bloc/states/auth/register_states.dart';
 import 'package:movies/model/post_user_model.dart';
 import 'package:movies/model/registor_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterUser extends Cubit<RegisterStates> {
   DataUser? user;
@@ -16,7 +15,7 @@ class RegisterUser extends Cubit<RegisterStates> {
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
     phoneController = TextEditingController();
-    avaterId = 1;
+    avaterId = 0;
     modelU = PostUserModel(
       name: nameController.text,
       email: emailController.text,
@@ -45,7 +44,7 @@ class RegisterUser extends Cubit<RegisterStates> {
           email: emailController.text,
           password: passwordController.text,
           confirmPassword: confirmPasswordController.text,
-          phone: phoneController.text,
+          phone: "+2${phoneController.text}",
           avaterId: avaterId,
         );
         Uri url =
@@ -59,16 +58,17 @@ class RegisterUser extends Cubit<RegisterStates> {
           body: requestBody,
         );
         if (response.statusCode >= 200 && response.statusCode < 300) {
-          var json = jsonDecode(response.body);
-          RegisterModel model = RegisterModel.fromJson(json);
-          user = model.data;
-          SharedPreferences shPref = await SharedPreferences.getInstance();
-          shPref.setString("name", user!.name.toString());
-          shPref.setString("email", user!.email.toString());
-          shPref.setString("phone", user!.phone.toString());
-          shPref.setString("pass", user!.password.toString());
-          shPref.setInt("avaterId", user!.avaterId!.toInt());
-          shPref.setBool("isLogin", true);
+          //   var json = jsonDecode(response.body);
+          // RegisterModel model = RegisterModel.fromJson(json);
+          // user = model.data;
+          // SharedPreferences shPref = await SharedPreferences.getInstance();
+          // shPref.setString("name", user!.name.toString());
+          //  shPref.setString("id", user!.sId.toString());
+          // shPref.setString("email", user!.email.toString());
+          // shPref.setString("phone", user!.phone.toString());
+          // shPref.setString("pass", user!.password.toString());
+          // shPref.setInt("avaterId", user!.avaterId!.toInt());
+          // shPref.setBool("isLogin", true);
           emit(RegisterSuccessState());
         } else {
           print("Error : ${response.body}");

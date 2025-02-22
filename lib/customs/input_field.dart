@@ -11,7 +11,7 @@ class InputField extends StatelessWidget {
   final bool isObscure;
   InputField(
       {super.key,
-      required this.lable,
+      this.lable = "",
       required this.validate,
       this.prefixIcon,
       this.suffixIcon,

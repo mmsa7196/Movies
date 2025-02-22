@@ -4,7 +4,6 @@ import 'package:movies/bloc/auth/register.dart';
 import 'package:movies/bloc/states/auth/register_states.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
-import 'package:movies/core/class/app_rout.dart';
 import 'package:movies/customs/input_field.dart';
 import 'package:movies/customs/lang_mode_btn.dart';
 import 'package:movies/function/validate/email_validate.dart';
@@ -21,10 +20,21 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  int avaterId = 0;
+  final PageController _pageController =
+      PageController(initialPage: 4, viewportFraction: .3);
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {
+        avaterId = _pageController.page!.round();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    PageController _pageController =
-        PageController(initialPage: 4, viewportFraction: .3);
     return BlocProvider<RegisterUser>(
       create: (context) => RegisterUser(),
       child: BlocConsumer<RegisterUser, RegisterStates>(
@@ -48,30 +58,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
               context: context,
               builder: (context) => AlertDialog(
                 title: Text("Error"),
-                content: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: AppColors.buttonRed,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
+                content: Column(
+                  spacing: 10,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "User already exist",
+                      style: TextStyle(color: AppColors.primary),
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(Icons.rotate_left, color: AppColors.text),
-                        Text("Try again")
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: AppColors.green,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text("Log in"),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: AppColors.buttonRed,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Icon(Icons.rotate_left, color: AppColors.text),
+                                Text("Try again")
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
             );
           }
           if (state is RegisterSuccessState) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRouts.bottonNavigator, (Route<dynamic> route) => false);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Success"),
+                content: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: AppColors.green,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text("Log in"),
+                  ),
+                ),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -89,13 +147,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 94,
                           child: PageView.builder(
                               controller: _pageController,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                bloc.avaterId = index;
+                                bloc.avaterId = avaterId;
+                                // print(
+                                //     "---------avId from screen ${bloc.avaterId}");
                                 return Image.asset(AppImages.avatars[index]);
                               },
                               itemCount: AppImages.avatars.length),

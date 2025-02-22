@@ -36,8 +36,9 @@ class LogInUser extends Cubit<LogInStates> {
         );
         if (response.statusCode >= 200 && response.statusCode < 300) {
           final responseData = jsonDecode(response.body);
-          String id = responseData["data"];
-          await getProfile(id);
+          String token = responseData["data"];
+
+          await getProfile(token);
           emit(LogInSuccessState());
         } else {
           print("Error : ${response.body}");
@@ -50,13 +51,13 @@ class LogInUser extends Cubit<LogInStates> {
     }
   }
 
-  getProfile(String id) async {
+  getProfile(String token) async {
     try {
       Uri url = Uri.parse(AppLinksApi.getProfile);
       http.Response res = await http.get(
         url,
         headers: {
-          "Authorization": "Bearer $id",
+          "Authorization": "Bearer $token",
           "Content-Type": "application/json",
         },
       );
@@ -64,12 +65,14 @@ class LogInUser extends Cubit<LogInStates> {
         final json = jsonDecode(res.body);
         RegisterModel model = RegisterModel.fromJson(json);
         user = model.data;
-        print(user);
         SharedPreferences shPref = await SharedPreferences.getInstance();
+
+        shPref.setString("id", user!.sId.toString());
         shPref.setString("name", user!.name.toString());
         shPref.setString("email", user!.email.toString());
         shPref.setString("phone", user!.phone.toString());
         shPref.setString("pass", user!.password.toString());
+        shPref.setString("token", token);
         shPref.setInt("avaterId", user!.avaterId!.toInt());
         shPref.setBool("isLogin", true);
         print("------------- success get profile ----------");

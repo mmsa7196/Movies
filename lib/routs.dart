@@ -18,5 +18,4 @@ Map<String, Widget Function(BuildContext)> routs = {
   AppRouts.forgetPass: (context) => const ForgetPasswordScreen(),
   AppRouts.updateProfile: (context) => const UpdateProfileScreen(),
   AppRouts.bottonNavigator: (context) => const BottomNavigationBarScreen(),
-
 };
