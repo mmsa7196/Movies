@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
@@ -10,7 +11,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forget Password"),
+        title: Text("forget_password_bar".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -21,7 +22,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: InputField(
-                lable: "Email",
+                lable: "email".tr(),
                 prefixIcon: Image.asset(AppImages.emailIcon),
                 validate: () {},
               ),
@@ -31,7 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   child: Text(
-                    "Verfiy Email",
+                    "verify_email_btn".tr(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
