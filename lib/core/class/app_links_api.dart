@@ -14,4 +14,6 @@ class AppLinksApi {
 
   ///---------------------- get profile ------------------//
   static const String getProfile = "$auth/profile";
+////------------------------rest pass ------------------///
+  static const String restPass = "$auth/auth/reset-password";
 }

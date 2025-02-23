@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/bottom_nav/buttom_na.dart';
 import 'package:movies/bloc/home/get_all_movies.dart';
 import 'package:movies/bloc/home/get_movies_avilable_now.dart';
 import 'package:movies/bloc/states/bloc_home_states.dart';
@@ -114,7 +115,14 @@ class _HomeState extends State<Home> {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////// TITLE WATCH MORE /////////////////////////......//////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-                        CustomTitleList(title: "Action", subTitle: "See more"),
+                        CustomTitleList(
+                            ontap: () {
+                              var bloc =
+                                  BlocProvider.of<ButtomNavBloc>(context);
+                              bloc.changePage(2);
+                            },
+                            title: "Action",
+                            subTitle: "See more"),
                         SizedBox(height: 16),
                         /////////////////////////////////////////////////////////////
                         //////////////////////  BLOC NUMBER 2  //////////////////

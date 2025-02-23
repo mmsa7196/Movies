@@ -13,4 +13,8 @@ class AppRouts {
   static const String profile = "/profile";
   static const String bottonNavigator = "/bottonNavigator";
   static const String updateProfile = "/updateProfile";
+
+  static const restPass = '/restPass';
+
+  static const explor = '/explor';
 }

@@ -24,6 +24,12 @@ class _ExploreTabState extends State<ExploreTab> {
     getExploreBloc = GetExplore()..getExplore(genre[_currentIndex]);
   }
 
+  @override
+  void dispose() {
+    getExploreBloc.close();
+    super.dispose();
+  }
+
   void _onSelected(int i) {
     if (_currentIndex != i) {
       setState(() {
@@ -39,8 +45,8 @@ class _ExploreTabState extends State<ExploreTab> {
     double w = MediaQuery.of(context).size.width;
 
     return SafeArea(
-      child: BlocProvider.value(
-        value: getExploreBloc,
+      child: BlocProvider(
+        create: (context) => getExploreBloc,
         child: Column(
           children: [
             ListChoose(
@@ -48,73 +54,58 @@ class _ExploreTabState extends State<ExploreTab> {
               selected: _currentIndex,
             ),
             const SizedBox(height: 20),
-            BlocConsumer<GetExplore, ExploreState>(
-              listener: (context, state) {
-                if (state is ExploreErrorState) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('حدث خطأ أثناء تحميل البيانات')),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is ExploreLoadingState) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (state is ExploreErrorState) {
-                  return const Center(child: Text("فشل تحميل الأفلام"));
-                }
-                if (state is ExploreSuccessState) {
-                  var movies = getExploreBloc.movies;
-                  if (movies.isEmpty) {
-                    return const Center(child: Text("لم يتم العثور على أفلام"));
+            Expanded(
+              child: BlocConsumer<GetExplore, ExploreState>(
+                listener: (context, state) {
+                  if (state is ExploreErrorState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('حدث خطأ أثناء تحميل البيانات')),
+                    );
                   }
+                },
+                builder: (context, state) {
+                  if (state is ExploreLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ExploreErrorState) {
+                    return const Center(child: Text("فشل تحميل الأفلام"));
+                  }
+                  if (state is ExploreSuccessState) {
+                    var movies = getExploreBloc.movies;
+                    if (movies.isEmpty) {
+                      return const Center(
+                          child: Text("لم يتم العثور على أفلام"));
+                    }
 
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.6,
-                          ),
-                          itemCount: movies.length > 30 ? 30 : movies.length,
-                          itemBuilder: (context, index) => CustomMoviePoster(
-                            ontap: () {
-                              Navigator.of(context).pushNamed(
-                                AppRouts.movieDetails,
-                                arguments: movies[index],
-                              );
-                            },
-                            image: movies[index].mediumCoverImage!,
-                            rating: movies[index].rating.toString(),
-                            height: h * 0.35,
-                            width: w * 0.45,
-                            ratingHeight: 35,
-                            ratingWidth: 70,
-                          ),
-                        ),
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: 0.6,
                       ),
-                      // SizedBox(
-                      //   height: 20,
-                      //   width: w,
-                      //   child: CustomButton(
-                      //     widget: Row(
-                      //       children: [
-                      //         Text("More"),
-                      //         Icon(Icons.arrow_drop_down_rounded)
-                      //       ],
-                      //     ),
-                      //   ),
-                      // )
-                    ],
-                  );
-                }
-                return const Center(child: Text("لا توجد بيانات "));
-              },
+                      itemCount: movies.length > 30 ? 30 : movies.length,
+                      itemBuilder: (context, index) => CustomMoviePoster(
+                        ontap: () {
+                          Navigator.of(context).pushNamed(
+                            AppRouts.movieDetails,
+                            arguments: movies[index],
+                          );
+                        },
+                        image: movies[index].mediumCoverImage!,
+                        rating: movies[index].rating.toString(),
+                        height: h * 0.35,
+                        width: w * 0.45,
+                        ratingHeight: 35,
+                        ratingWidth: 70,
+                      ),
+                    );
+                  }
+                  return const Center(child: Text("لا توجد بيانات "));
+                },
+              ),
             ),
           ],
         ),

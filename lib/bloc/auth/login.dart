@@ -38,8 +38,9 @@ class LogInUser extends Cubit<LogInStates> {
           final responseData = jsonDecode(response.body);
           String token = responseData["data"];
 
-          await getProfile(token);
-          emit(LogInSuccessState());
+          if (await getProfile(token)) {
+            emit(LogInSuccessState());
+          }
         } else {
           print("Error : ${response.body}");
           emit(LogInErrorState());
@@ -51,8 +52,9 @@ class LogInUser extends Cubit<LogInStates> {
     }
   }
 
-  getProfile(String token) async {
+  Future<bool> getProfile(String token) async {
     try {
+      print("---------------------------------------");
       Uri url = Uri.parse(AppLinksApi.getProfile);
       http.Response res = await http.get(
         url,
@@ -61,6 +63,8 @@ class LogInUser extends Cubit<LogInStates> {
           "Content-Type": "application/json",
         },
       );
+      print("----------${res.body}-----------------------------");
+
       if (res.statusCode >= 200 && res.statusCode < 300) {
         final json = jsonDecode(res.body);
         RegisterModel model = RegisterModel.fromJson(json);
@@ -76,9 +80,14 @@ class LogInUser extends Cubit<LogInStates> {
         shPref.setInt("avaterId", user!.avaterId!.toInt());
         shPref.setBool("isLogin", true);
         print("------------- success get profile ----------");
+
+        return true;
+      } else {
+        return false;
       }
     } catch (e) {
-      print("----------------$e");
+      print("Exception: $e");
+      return false;
     }
   }
 }

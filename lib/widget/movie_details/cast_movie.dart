@@ -54,7 +54,26 @@ class CastMovie extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text("Name : $name"), Text("Character : $character")],
+            children: [
+              SizedBox(
+                width: w * 0.5,
+                child: Text(
+                  "Name : $name",
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(
+                width: w * 0.5,
+                child: Text(
+                  "Character : $character",
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
           )
         ],
       ),

@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UpdateProfileBloc extends Cubit<UpdateStates> {
   UpdateProfileBloc() : super(UpdateInitState());
 
-  // late String name;
-  // late String phone;
   late int avaterId = 0;
 
   late TextEditingController cName = TextEditingController();

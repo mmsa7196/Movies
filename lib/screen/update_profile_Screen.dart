@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/profile/delete.dart';
 import 'package:movies/bloc/profile/upddate/update_profile.dart';
+import 'package:movies/bloc/states/profile/delete.dart';
 import 'package:movies/bloc/states/profile/update_states.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
@@ -15,8 +17,15 @@ class UpdateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return BlocProvider<UpdateProfileBloc>(
-      create: (context) => UpdateProfileBloc()..getUser(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UpdateProfileBloc>(
+          create: (context) => UpdateProfileBloc()..getUser(),
+        ),
+        BlocProvider<DeleteUserBloc>(
+          create: (context) => DeleteUserBloc(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Text("Pick Avatar"),
@@ -42,6 +51,7 @@ class UpdateProfileScreen extends StatelessWidget {
           }
         }, builder: (context, state) {
           UpdateProfileBloc bloc = BlocProvider.of<UpdateProfileBloc>(context);
+          DeleteUserBloc blocDelete = BlocProvider.of<DeleteUserBloc>(context);
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
             child: SingleChildScrollView(
@@ -91,7 +101,9 @@ class UpdateProfileScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRouts.restPass);
+                        },
                         child: Text(
                           "Reset Password",
                           style: Theme.of(context)
@@ -104,19 +116,45 @@ class UpdateProfileScreen extends StatelessWidget {
                   SizedBox(
                     height: h * 0.15,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.buttonRed),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: Text(
-                        "Delete Account",
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.w400),
+                  BlocConsumer<DeleteUserBloc, DeleteStates>(
+                      listener: (context, state) {
+                    if (state is DeleteLoadingState) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                            title: Text("Loading.."),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircularProgressIndicator(),
+                              ],
+                            )),
+                      );
+                    }
+                    if (state is DeleteSuccessState) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRouts.login, (r) => false);
+                    }
+                  }, builder: (context, state) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        blocDelete.deleteUser();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.buttonRed),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          "Delete Account",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  fontSize: 20, fontWeight: FontWeight.w400),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
