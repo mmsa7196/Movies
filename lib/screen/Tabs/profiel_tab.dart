@@ -137,15 +137,20 @@ class _ProfileTabState extends State<ProfileTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.menu,
-                              color: AppColors.button,
-                              size: 40,
-                            ),
-                            Text("watch_list".tr())
-                          ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRouts.fav);
+                          },
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.menu,
+                                color: AppColors.button,
+                                size: 40,
+                              ),
+                              Text("watch_list".tr())
+                            ],
+                          ),
                         ),
                         Column(
                           children: [

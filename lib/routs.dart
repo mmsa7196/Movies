@@ -4,6 +4,7 @@ import 'package:movies/screen/OnBoarding.dart';
 import 'package:movies/screen/Tabs/BottomNavigationBarScreen.dart';
 import 'package:movies/screen/Tabs/explore_tab.dart';
 import 'package:movies/screen/Tabs/home.dart';
+import 'package:movies/screen/fav_screen.dart';
 import 'package:movies/screen/forget_password_screen.dart';
 import 'package:movies/screen/login_Screen.dart';
 import 'package:movies/screen/movie_details.dart';
@@ -22,4 +23,5 @@ Map<String, Widget Function(BuildContext)> routs = {
   AppRouts.bottonNavigator: (context) => const BottomNavigationBarScreen(),
   AppRouts.restPass: (context) => const RestPass(),
   AppRouts.explor: (context) => const ExploreTab(),
+  AppRouts.fav: (context) => const FavScreen(),
 };

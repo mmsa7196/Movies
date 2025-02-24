@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/fav/add_fav.dart';
+import 'package:movies/bloc/fav/check_fav.dart';
 import 'package:movies/bloc/get_movie_details.dart';
 import 'package:movies/bloc/states/details_movie.dart';
 import 'package:movies/core/class/app_colors.dart';
 import 'package:movies/core/class/app_images.dart';
+import 'package:movies/model/fav.dart';
 import 'package:movies/model/movies_model.dart';
 import 'package:movies/widget/movie_details/app_bar.dart';
 import 'package:movies/widget/movie_details/cast_movie.dart';
@@ -27,12 +30,25 @@ class MovieDetails extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double h = size.height;
     double w = size.width;
-    Movies movieChoosen = ModalRoute.of(context)!.settings.arguments as Movies;
+    final Object? args = ModalRoute.of(context)!.settings.arguments;
+
+    Movies? movieChossen;
+    DataFav? favMovie;
+
+    if (args is Movies) {
+      movieChossen = args;
+    } else if (args is DataFav) {
+      favMovie = args;
+    } else {
+      throw Exception();
+    }
 
     return Scaffold(
       body: BlocProvider(
-        create: (context) =>
-            GetMovieDetails()..getMovieDetails(movieChoosen.id.toString()),
+        create: (context) => GetMovieDetails()
+          ..getMovieDetails(
+            movieChossen?.id?.toString() ?? favMovie?.movieId?.toString() ?? '',
+          ),
         child: BlocBuilder<GetMovieDetails, DetailsMovieStates>(
           builder: (context, state) {
             if (state is DetailsMovieLoadingState) {
@@ -65,7 +81,7 @@ class MovieDetails extends StatelessWidget {
                         ),
                         errorWidget: (context, url, error) =>
                             CachedNetworkImage(
-                                imageUrl: movieChoosen.largeCoverImage ?? '',
+                                imageUrl: movie.largeCoverImage ?? '',
                                 height: size.height * 0.8,
                                 width: size.width,
                                 fit: BoxFit.cover,
@@ -93,7 +109,21 @@ class MovieDetails extends StatelessWidget {
                         child: Column(
                           spacing: h * 0.15,
                           children: [
-                            const AppBarDetails(),
+                            MultiBlocProvider(
+                              providers: [
+                                BlocProvider(create: (context) => AddFavBloc()),
+                                BlocProvider(
+                                    create: (context) => CheckFavBloc()
+                                      ..checkFav(bloc.movie!.id!)),
+                              ],
+                              child: AppBarDetails(
+                                movieId: bloc.movie!.id!,
+                                title: bloc.movie!.title ?? "",
+                                imageURL: bloc.movie!.mediumCoverImage ?? '',
+                                year: bloc.movie!.year ?? 0,
+                                rating: bloc.movie!.rating ?? 0,
+                              ),
+                            ),
                             IconPlay(
                               ontap: () {
                                 bloc.launchMovieUrl();
@@ -141,10 +171,14 @@ class MovieDetails extends StatelessWidget {
                                       id: movie.id!,
                                     ),
                                   ),
-                                if (movieChoosen.summary?.isNotEmpty ?? false)
-                                  Text("summary".tr(),
-                                      style: textTheme.titleMedium),
-                                SummaryMovie(title: movieChoosen.summary!),
+                                if (movieChossen != null)
+                                  if (movieChossen!.summary?.isNotEmpty ??
+                                      false)
+                                    Text("summary".tr(),
+                                        style: textTheme.titleMedium),
+                                if (movieChossen != null)
+                                  SummaryMovie(
+                                      title: movieChossen!.summary ?? ''),
                                 if (movie.cast != null &&
                                     movie.cast!.isNotEmpty)
                                   Text("cast".tr(),

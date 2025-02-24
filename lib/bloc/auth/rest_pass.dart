@@ -35,7 +35,7 @@ class RestPassBloc extends Cubit<RestPassStates> {
           }),
         );
 
-        if (res.statusCode >= 200 || res.statusCode < 300) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           emit(RestPassSuccessState());
         } else {
           emit(RestPassErrorState(error: res.statusCode.toString()));

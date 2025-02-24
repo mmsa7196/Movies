@@ -17,4 +17,6 @@ class AppRouts {
   static const restPass = '/restPass';
 
   static const explor = '/explor';
+
+  static const fav = '/fav';
 }

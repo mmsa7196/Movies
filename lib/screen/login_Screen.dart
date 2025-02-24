@@ -117,21 +117,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRouts.forgetPass);
-                        },
-                        child: Text(
-                          "forget_password".tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(fontSize: 14, color: AppColors.button),
-                        ),
-                      ),
-                    ),
+                    //   Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: TextButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamed(context, AppRouts.forgetPass);
+                    //     },
+                    //     child: Text(
+                    //       "forget_password".tr(),
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .bodyMedium!
+                    //           .copyWith(fontSize: 14, color: AppColors.button),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(top: 33, bottom: 22),
                       child: ElevatedButton(
@@ -175,60 +175,60 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 27, bottom: 28),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: AppColors.button,
-                              endIndent: 11,
-                              indent: 90,
-                            ),
-                          ),
-                          Text(
-                            "or".tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: AppColors.button),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: AppColors.button,
-                              endIndent: 90,
-                              indent: 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 33),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(AppImages.googleIcon),
-                              SizedBox(
-                                width: 11,
-                              ),
-                              Text(
-                                "login_with_Google_btn".tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: AppColors.textThird),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 27, bottom: 28),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Expanded(
+                    //         child: Divider(
+                    //           color: AppColors.button,
+                    //           endIndent: 11,
+                    //           indent: 90,
+                    //         ),
+                    //       ),
+                    //       Text(
+                    //         "or".tr(),
+                    //         style: Theme.of(context)
+                    //             .textTheme
+                    //             .bodyMedium!
+                    //             .copyWith(color: AppColors.button),
+                    //       ),
+                    //       Expanded(
+                    //         child: Divider(
+                    //           color: AppColors.button,
+                    //           endIndent: 90,
+                    //           indent: 11,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 33),
+                    //   child: ElevatedButton(
+                    //     onPressed: () {},
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 18),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Image.asset(AppImages.googleIcon),
+                    //           SizedBox(
+                    //             width: 11,
+                    //           ),
+                    //           Text(
+                    //             "login_with_Google_btn".tr(),
+                    //             style: Theme.of(context)
+                    //                 .textTheme
+                    //                 .bodyMedium!
+                    //                 .copyWith(color: AppColors.textThird),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
